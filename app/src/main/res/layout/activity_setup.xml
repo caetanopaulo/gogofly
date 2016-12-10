@@ -61,44 +61,142 @@
         android:layout_below="@+id/relativeLayout_header"
         android:layout_alignParentStart="true">
 
-        <TextView
-            android:text="@string/setup_price"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_view_setup_price"
+            android:id="@+id/relativeLayout_slider_price"
+            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_margin="@dimen/header_icon_start">
 
-        <SeekBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_setup_price"
-            android:layout_alignParentStart="true"
-            android:id="@+id/seekBar_price"
-            android:layout_alignParentEnd="true" />
+            <TextView
+                android:text="@string/setup_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_view_setup_price"
+                android:layout_alignParentStart="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:fontFamily="sans-serif"
+                android:textSize="30sp"
+                android:lineSpacingExtra="8sp"
+                android:textStyle="normal|bold"
+                android:layout_marginStart="@dimen/header_icon_half"
+                android:layout_marginTop="@dimen/header_icon_half"
+                android:layout_marginEnd="@dimen/header_icon_half"/>
 
-        <TextView
-            android:text="@string/setup_days"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seekBar_price"
-            android:layout_alignParentStart="true"
-            android:id="@+id/textView_setup_days" />
+            <TextView
+                android:text="@string/setup_price_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_price_sub"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_below="@+id/text_view_setup_price"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/seekBar_price"
+                android:textColor="@color/colorTextSecondary"
+                android:textAlignment="center" />
 
-        <SeekBar
-            android:layout_width="wrap_content"
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_view_setup_price"
+                android:id="@+id/seekBar_price"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/text_view_setup_price" />
+
+
+            <TextView
+                android:text="@string/setup_price_range"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_setup_price_range"
+                android:layout_below="@+id/seekBar_price"
+                android:layout_alignStart="@+id/seekBar_price"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="@string/setup_price_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_setup_price_max"
+                android:textAlignment="textStart"
+                android:layout_below="@+id/textView_price_sub"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_setup_days"
-            android:layout_alignParentStart="true"
-            android:id="@+id/seekBar_days"
-            android:layout_alignParentEnd="true" />
+            android:id="@+id/relativeLayout_slider_days"
+            android:layout_below="@+id/relativeLayout_slider_price"
+            android:layout_margin="@dimen/header_icon_start" >
+
+            <TextView
+                android:text="@string/setup_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_setup_days"
+                android:layout_alignParentStart="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:fontFamily="sans-serif"
+                android:textSize="30sp"
+                android:textStyle="normal|bold"
+                android:layout_marginStart="@dimen/header_icon_half"
+                android:layout_marginTop="@dimen/header_icon_half"
+                android:layout_marginEnd="@dimen/header_icon_half"/>
+
+
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_setup_days"
+                android:id="@+id/seekBar_days"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/textView_setup_days" />
+
+            <TextView
+                android:text="@string/setup_price_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_days_sub"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_below="@+id/seekBar_days"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/seekBar_days"
+                android:textColor="@color/colorTextSecondary"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/setup_days_range"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_setup_days_range"
+                android:layout_below="@+id/seekBar_days"
+                android:layout_alignStart="@+id/seekBar_days"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="@string/setup_days_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_setup_days_max"
+                android:textAlignment="textStart"
+                android:layout_below="@+id/seekBar_days"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout_input"
-        android:layout_alignParentStart="true" >
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout_checkbox">
 
         <CheckBox
             android:text="@string/check_box_europe"
