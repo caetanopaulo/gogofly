@@ -54,9 +54,12 @@ public class FlightsAdapter extends ArrayAdapter<Flight> {
         TextView tvPrice = (TextView) convertView.findViewById(R.id.listItem_price);
 
         // Populate the data into the template view using the data object
-        tvTo.setText(flight.getArrival_loc());
+        tvTo.setText(flight.getDestination_name());
         tvDepartureTime.setText(flight.getDeparture_time());
-        tvPrice.setText(flight.getPrice());
+
+        String currency = flight.getCurrency();
+        System.out.println(currency);
+        tvPrice.setText(String.format(context.getResources().getString(R.string.money_euro), flight.getPrice()));
 
         // Return the completed view to render on screen
         return convertView;

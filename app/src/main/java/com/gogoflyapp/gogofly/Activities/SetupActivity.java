@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.gogoflyapp.gogofly.R;
 import com.gogoflyapp.gogofly.tools.Flight;
 import com.gogoflyapp.gogofly.tools.Suitcase;
+import com.gogoflyapp.gogofly.tools.Theme;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -32,11 +33,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-
-import static android.R.attr.country;
 
 public class SetupActivity extends AppCompatActivity {
 
@@ -53,12 +51,15 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
+        // get data from server
+        phoneHome();
+
         ImageView imageViewGo = (ImageView) findViewById(R.id.imageViewGoGoFly);
         imageViewGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //System.out.println(createBase64("5dx9xyxnkrpbxx5bj4dmq7rd:26yA3kRsyQ"));
-                fireFolley();
+                phoneHome();
                 //createFakeFlights();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
@@ -73,38 +74,11 @@ public class SetupActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void fireFolley() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // String url ="https://api.klm.com/travel/flightoffers/reference-data";
-        // https://www.klm.com/oauthcust/oauth/token
-        //String url ="https://www.klm.com/oauthcust/oauth/token?grand_type=client_credentials";
+    private void phoneHome() {
         String url = "https://www.klm.com/oauthcust/oauth/token?grant_type=client_credentials";
-        // Authorization
         String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
 
         requestWithSomeHttpHeaders(url, auth);
-
-        /*
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        System.out.println(response); // .substring(0,500)
-                        // mTextView.setText("Response is: "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Go Go Fly, but not today!");
-                // mTextView.setText("That didn't work!");
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-        */
     }
 
     /**
@@ -143,15 +117,13 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     public void requestWithSomeHttpHeaders(String url, String value_start) {
-        final String value = value_start;
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response);
-
+                        Log.d("Response succes!", response);
 
                         JSONObject reader = null;
                         try {
@@ -167,21 +139,22 @@ public class SetupActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+                        /*
                         Log.d("access token: ", accessToken);
                         Log.d("expires in: ", expires_in);
+                        */
 
                         if (accessToken != null) {
                             String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-02-23&maxDepartureDate=2017-01-22&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
                             String authTravelLocations = "Bearer " + accessToken;
 
-                            System.out.println("Using Travel Location Bearer: " + authTravelLocations);
+                            // System.out.println("Using Travel Location Bearer: " + authTravelLocations);
 
                             requestTravelLocationsWithSomeHttpHeaders(urlTravelLocations, authTravelLocations);
                         } else
                             System.out.println("NULL Travel Location Bearer!");
 
-
-                    }
+                        }
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -194,7 +167,7 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<String, String>();
-                String creds = String.format("%s:%s", "k.flummox@gmail.com", "CEzfw5tXKLM");
+                // String creds = String.format("%s:%s", "k.flummox@gmail.com", "CEzfw5tXKLM");
                 //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
 
                 String auth = "Basic OHVzem1janl1YWI1OHF6ZGU1bXJoNTdlOmdhaFRleWo5R0g=";
@@ -203,9 +176,13 @@ public class SetupActivity extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
-
     }
 
+    /**
+     * The real magic, calling real data.
+     * @param url
+     * @param value_start
+     */
     public void requestTravelLocationsWithSomeHttpHeaders(String url, String value_start) {
         final String value = value_start;
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -219,13 +196,10 @@ public class SetupActivity extends AppCompatActivity {
                         JSONObject reader = null;
                         try {
                             reader = new JSONObject(response);
-                            getAvailableThemes(reader);
-
+                            parseData(reader);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -245,9 +219,11 @@ public class SetupActivity extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
-
     }
 
+    /**
+     * Faking it.
+     *
     private void createFakeFlights() {
         ArrayList<Flight> fake_flights = new ArrayList<>();
         String amsterdam = "Schiphol";
@@ -259,76 +235,77 @@ public class SetupActivity extends AppCompatActivity {
 
         Suitcase.getInstance().setFlights(fake_flights);
     }
+     */
 
-//    private void parseData(JSONObject dataObj) {
-//        ArrayList<Flight> fake_flights = new ArrayList<>();
-//        String amsterdam = "Schiphol";
-//
-//        JSONArray _embeddedArrJSON = null;
-//        try {
-//            _embeddedArrJSON = dataObj.getJSONArray("_embedded");
-//
-//            for (int i=0;i< _embeddedArrJSON.length(); i++)
-//            {
-//                JSONObject json = _embeddedArrJSON.getJSONObject(i);
-//
-//                //System.out.println(json.getString("Pref1"));
-//                //System.out.println(json.getString("Pref2"));
-//
-//                String code = json.getString("code");
-//                String name = json.getString("name");
-//
-//                JSONObject fareJson = json.getJSONObject("fare");
-//                fareJson.get("")
-//
-//                Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
-//                fake_flights.add(new_flight);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+    private void parseData(JSONObject dataObj) {
+        ArrayList<Flight> new_flights = new ArrayList<>();
+        String amsterdam = "Schiphol";
 
-    private HashMap getAvailableThemes(JSONObject dataObj) {
-        HashMap<String,String> availableThemes = new HashMap<String,String>();
-
-        JSONArray embeddedArrJSON = null;
+        JSONArray _embeddedArrJSON = null;
         try {
-            embeddedArrJSON = dataObj.getJSONArray("_embedded");
+            _embeddedArrJSON = dataObj.getJSONArray("_embedded");
 
-            for (int i=0;i< embeddedArrJSON.length(); i++)
-            {
-                JSONObject embeddedJSONObj = embeddedArrJSON.getJSONObject(i);
+            for (int i=0;i< _embeddedArrJSON.length(); i++) {
+                JSONObject json = _embeddedArrJSON.getJSONObject(i);
 
-                JSONArray availableThemesArr = null;
+                Flight new_flight = new Flight(json.getString("name"));
+                new_flight.setDestination_code(json.getString("code"));
+
+                JSONObject json_fare = json.getJSONObject("fare");
+
+                JSONObject json_fare_origin = json_fare.getJSONObject("origin");
+                new_flight.setOrigin_name(json_fare_origin.getString("name"));
+                new_flight.setOrigin_code(json_fare_origin.getString("code"));
+
+                new_flight.setDeparture_date(json_fare.getString("departureDate"));
+                new_flight.setReturn_date(json_fare.getString("returnDate"));
+
+                // Cash
+                JSONObject json_amount = json_fare.getJSONObject("amount");
+                new_flight.setCurrency(json_amount.getString("currency"));
+                new_flight.setPrice(json_amount.getString("price"));
+
+                // Travel time
+                String json_amount_possibleTravelTime = null;
                 try {
-                    availableThemesArr = embeddedJSONObj.getJSONArray("themes");
-                } catch (JSONException s) {
-
+                    json_amount_possibleTravelTime = json_fare.getString("possibleTravelTime");
+                    // System.out.println(json_fare.getString("possibleTravelTime"));
+                    // json_amount_possibleTravelTime = json_fare.getString("possibleTravelTime");
+                } catch (JSONException jse) {
+                    // jse.printStackTrace();
                 }
 
-                if (availableThemesArr != null) {
-                    //System.out.println(availableThemesArr.toString());
-                    for (int j=0;j< availableThemesArr.length(); j++) {
-                        JSONObject themesJSONObj = availableThemesArr.getJSONObject(j);
-                        String category = themesJSONObj.getString("category");
-                        String name = themesJSONObj.getString("name");
-
-                        if(!availableThemes.containsKey(category)) {
-                            availableThemes.put(category, name);
-                            //System.out.println("Category: " + category + " Name: " + name);
-                        }
-                    }
-
+                if (json_amount_possibleTravelTime != null) {
+                    new_flight.setFlight_time(json_amount_possibleTravelTime);
+                } else {
+                    new_flight.setFlight_time(null);
                 }
 
+                // Popularity
+                String popularity = null;
+                try {
+                    popularity = json.getString("popularity");
+                } catch (JSONException jse) {
+                    // jse.printStackTrace();
+                }
 
+                if (popularity != null) {
+                    new_flight.setPopularity(popularity);
+                } else {
+                    new_flight.setPopularity(null);
+                }
+
+                new_flight.setDeparture_time(getFakeTime());
+
+                // System.out.println(json.getString("popularity"));
+                new_flights.add(new_flight);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return availableThemes;
+
+        Suitcase.getInstance().setFlights(new_flights);
     }
 
     private String getFakeTime() {
@@ -396,4 +373,5 @@ public class SetupActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
 }
