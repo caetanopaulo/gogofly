@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,7 @@
     tools:context="com.gogoflyapp.gogofly.Activities.SetupActivity">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/activity_setup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -124,18 +124,6 @@
                     android:id="@+id/seekBar_days"
                     android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/textView_setup_days" />
-
-                <TextView
-                    android:text="@string/setup_price_sub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_days_sub"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                    android:layout_below="@+id/seekBar_days"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/seekBar_days"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textAlignment="center" />
 
                 <TextView
                     android:text="@string/setup_days_range"

@@ -67,7 +67,9 @@ public class SetupActivity extends AppCompatActivity {
         imageViewGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneHome();
+
+                filterByMaxPrice(Math.round(Double.parseDouble(user_max_price)));
+                //phoneHome();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
                 startActivity(intent);
@@ -76,6 +78,19 @@ public class SetupActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    void filterByMaxPrice(long user_max_price){
+        ArrayList<Flight> flights = Suitcase.getInstance().getTotalFlights();
+        ArrayList<Flight> flightsToRemove = new ArrayList<Flight>();
+
+        for (Flight flight: flights) {
+            if(Long.parseLong(flight.getPrice()) > user_max_price){
+                flightsToRemove.add(flight);
+            }
+        }
+        flights.removeAll(flightsToRemove);
+        Suitcase.getInstance().setTotalFlights(flights);
     }
 
     private void phoneHome() {
