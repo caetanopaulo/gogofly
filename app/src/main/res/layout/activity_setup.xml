@@ -12,6 +12,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     -->
+    <include layout="@layout/layout_header"/>
 
 
     <RelativeLayout
@@ -25,7 +26,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/AppIconOriginal"
+            android:src="@drawable/app_icon_original"
             android:layout_marginTop="@dimen/header_icon_top"
             android:layout_marginStart="@dimen/header_icon_start"
             android:layout_marginBottom="@dimen/header_icon_top"/>
