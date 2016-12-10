@@ -1,6 +1,7 @@
 package com.gogoflyapp.gogofly.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -18,15 +19,34 @@ import com.android.volley.toolbox.Volley;
 import com.gogoflyapp.gogofly.R;
 import com.gogoflyapp.gogofly.tools.Flight;
 import com.gogoflyapp.gogofly.tools.Suitcase;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+import static android.R.attr.country;
+
 public class SetupActivity extends AppCompatActivity {
+
+    String accessToken = null;
+    String expires_in = null;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +58,8 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //System.out.println(createBase64("5dx9xyxnkrpbxx5bj4dmq7rd:26yA3kRsyQ"));
-                // fireFolley();
-                createFakeFlights();
+                fireFolley();
+                //createFakeFlights();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
 //                EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -48,6 +68,9 @@ public class SetupActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void fireFolley() {
@@ -55,11 +78,12 @@ public class SetupActivity extends AppCompatActivity {
         // String url ="https://api.klm.com/travel/flightoffers/reference-data";
         // https://www.klm.com/oauthcust/oauth/token
         //String url ="https://www.klm.com/oauthcust/oauth/token?grand_type=client_credentials";
-        String url ="https://www.klm.com/oauthcust/oauth/token?grant_type=client_credentials";
+        String url = "https://www.klm.com/oauthcust/oauth/token?grant_type=client_credentials";
         // Authorization
         String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
 
         requestWithSomeHttpHeaders(url, auth);
+
         /*
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -88,7 +112,7 @@ public class SetupActivity extends AppCompatActivity {
      */
     private void createToken() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://www.ite1.klm.com/oauthcust/oauth/token";
+        String url = "https://www.ite1.klm.com/oauthcust/oauth/token";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -96,7 +120,7 @@ public class SetupActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        System.out.println(response.substring(0,500));
+                        System.out.println(response.substring(0, 500));
                         // mTextView.setText("Response is: "+ response.substring(0,500));
                     }
                 }, new Response.ErrorListener() {
@@ -122,29 +146,99 @@ public class SetupActivity extends AppCompatActivity {
         final String value = value_start;
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
+
+
+                        JSONObject reader = null;
+                        try {
+                            reader = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            accessToken = reader.getString("access_token");
+                            expires_in = reader.getString("expires_in");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Log.d("access token: ", accessToken);
+                        Log.d("expires in: ", expires_in);
+
+                        if (accessToken != null) {
+                            String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-02-23&maxDepartureDate=2017-01-22&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
+                            String authTravelLocations = "Bearer " + accessToken;
+
+                            System.out.println("Using Travel Location Bearer: " + authTravelLocations);
+
+                            requestTravelLocationsWithSomeHttpHeaders(urlTravelLocations, authTravelLocations);
+                        } else
+                            System.out.println("NULL Travel Location Bearer!");
+
+
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
-                        Log.d("ERROR","error => "+error.toString());
+                        Log.d("ERROR", "error => " + error.toString());
                     }
                 }
         ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<String, String>();
-                String creds = String.format("%s:%s","k.flummox@gmail.com","CEzfw5tXKLM");
-                String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                String creds = String.format("%s:%s", "k.flummox@gmail.com", "CEzfw5tXKLM");
+                //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+
+                String auth = "Basic OHVzem1janl1YWI1OHF6ZGU1bXJoNTdlOmdhaFRleWo5R0g=";
                 params.put("Authorization", auth);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+
+    }
+
+    public void requestTravelLocationsWithSomeHttpHeaders(String url, String value_start) {
+        final String value = value_start;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+
+                        JSONObject reader = null;
+                        try {
+                            reader = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR", "error => " + error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String authTravelLocations = "Bearer " + accessToken;
+                params.put("Authorization", authTravelLocations);
                 return params;
             }
         };
@@ -155,10 +249,47 @@ public class SetupActivity extends AppCompatActivity {
     private void createFakeFlights() {
         ArrayList<Flight> fake_flights = new ArrayList<>();
         String amsterdam = "Schiphol";
-        String [] destinations = {"London", "Paris", "Berlin", "Rome", "Barcelona"};
+        String[] destinations = {"London", "Paris", "Berlin", "Rome", "Barcelona"};
         for (String city : destinations) {
             Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
             fake_flights.add(new_flight);
+        }
+
+        Suitcase.getInstance().setFlights(fake_flights);
+    }
+
+    private void parseData(JSONObject dataObj) {
+        ArrayList<Flight> fake_flights = new ArrayList<>();
+        String amsterdam = "Schiphol";
+
+        JSONArray _embeddedArrJSON = null;
+        try {
+            _embeddedArrJSON = dataObj.getJSONArray("_embedded");
+
+            for (int i=0;i< _embeddedArrJSON.length(); i++)
+            {
+                JSONObject json = _embeddedArrJSON.getJSONObject(i);
+
+                //System.out.println(json.getString("Pref1"));
+                //System.out.println(json.getString("Pref2"));
+
+                String code = json.getString("code");
+                String name = json.getString("name");
+
+                JSONObject fareJson = json.getJSONObject("fare");
+                fareJson.get("")
+
+                Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
+                fake_flights.add(new_flight);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        for (String city : destinations) {
+
         }
 
         Suitcase.getInstance().setFlights(fake_flights);
@@ -172,7 +303,7 @@ public class SetupActivity extends AppCompatActivity {
 
         if (hours < 10) {
             time = "0" + hours;
-        } else if (hours > 99){
+        } else if (hours > 99) {
             time = "" + hours;
         } else {
             time = " " + hours;
@@ -190,8 +321,43 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private String getFakePrice() {
-        return String.format(getString(R.string.money_euro) , Integer.toString(new Random().nextInt(125) + 25)) + ",00";
+        return String.format(getString(R.string.money_euro), Integer.toString(new Random().nextInt(125) + 25)) + ",00";
     }
 
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Setup Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }
