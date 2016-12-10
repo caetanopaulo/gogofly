@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Go Go Fly</string>
+    <string name="text_view_setup">Setup</string>
+    <string name="setup_price">Flight Price</string>
+    <string name="setup_days">Days Away</string>
+
+    <!-- Money -->
+    <string name="money_euro">€ %s</string>
+    <string name="money_dollar">$ %s</string>
+
+    <!-- Checkboxes -->
+    <string name="check_box_eurozone">Euro Zone</string>
+    <string name="check_box_usa">Continental USA</string>
+    <string name="check_box_immunization">Immunizations</string>
+    <string name="check_box_nice_attendants">Cute Flight Attendants</string>
+    <string name="title_activity_flight_overview">FlightOverviewActivity</string>
+    <string name="title_activity_flight_view">FlightViewActivity</string>
+    <string name="title_activity_buy_flight">BuyFlightActivity</string>
+    <string name="title_activity_ticket">TicketActivity</string>
+
+
+</resources>
