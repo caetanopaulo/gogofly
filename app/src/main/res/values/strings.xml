@@ -8,6 +8,7 @@
     <string name="setup_price_max">%s 300</string>
     <string name="setup_days_range">%1$s - %2$s</string>
     <string name="setup_days_max">21</string>
+    <string name="setup_num_flights">flights available</string>
 
     <!-- Money -->
     <string name="money_euro">€ %s</string>

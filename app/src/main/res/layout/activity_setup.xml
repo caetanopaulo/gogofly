@@ -12,7 +12,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     -->
-    <include layout="@layout/layout_header"/>
+    <include layout="@layout/layout_header"
+        android:id="@+id/include_setup_header" />
 
 
     <RelativeLayout
@@ -239,17 +240,52 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/checkBox_australia"/>
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:background="@drawable/num_flights_border"
+        android:layout_above="@+id/imageViewGoGoFly"
+        android:layout_width="wrap_content"
+        android:id="@+id/relativeLayout_num_flights_available"
+        android:layout_margin="@dimen/header_icon_start">
+
+        <TextView
+            android:text="3"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textStyle="normal|italic"
+            android:id="@+id/textView_num"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/textView_num_flights"
+            android:layout_marginEnd="@dimen/header_icon_half"/>
+
+        <TextView
+            android:text="@string/setup_num_flights"
+            android:textColor="@color/colorTextSecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_num_flights"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textStyle="normal|italic"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:src="@drawable/gogo_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/imageViewGoGoFly"
-        android:layout_margin="15sp"
-        android:padding="10sp"/>
+        android:padding="10sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginBottom="15sp"/>
+
 
 </RelativeLayout>
