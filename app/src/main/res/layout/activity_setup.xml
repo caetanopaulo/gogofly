@@ -82,6 +82,7 @@
 
                 <TextView
                     android:text="@string/setup_price_max"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,7 +103,7 @@
                 android:layout_margin="@dimen/header_icon_start" >
 
                 <TextView
-                    android:text="@string/setup_days"
+                    android:text="@string/setup_days_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView_setup_days"
@@ -138,14 +139,16 @@
 
                 <TextView
                     android:text="@string/setup_days_range"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView_setup_days_range"
-                    android:layout_below="@+id/seekBar_days"
-                    android:layout_alignStart="@+id/seekBar_days"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:layout_alignTop="@+id/textView_setup_days"
+                    android:layout_alignParentEnd="true" />
 
+                <!--
                 <TextView
                     android:text="@string/setup_days_max"
                     android:layout_width="wrap_content"
@@ -154,6 +157,7 @@
                     android:textAlignment="textStart"
                     android:layout_below="@+id/seekBar_days"
                     android:layout_alignParentEnd="true" />
+                 -->
 
             </RelativeLayout>
 

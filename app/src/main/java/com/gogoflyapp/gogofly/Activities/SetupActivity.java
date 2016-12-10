@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,8 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -402,6 +399,34 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
 
+        // Days Range
+        int min_days = 1;
+        int range_days = 2;
+        int max_days = 25;
+        final TextView textViewDaysRange = (TextView) findViewById(R.id.textView_setup_days_range);
+        textViewDaysRange.setText(String.format(getResources().getString(R.string.setup_days_range), min_days, range_days, getResources().getString(R.string.setup_days_stay)));
+
+        SeekBar seekBarDays = (SeekBar) findViewById(R.id.seekBar_days);
+        seekBarDays.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue / 2;
+                textViewDaysRange.setText(String.format(getResources().getString(R.string.setup_days_range), progress / 4, progress / 2, getResources().getString(R.string.setup_days_stay)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // System.out.println(progress);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // System.out.println(progress + " Stopped");
+                // Maybe set somewhere else?
+            }
+        });
 
 
 
