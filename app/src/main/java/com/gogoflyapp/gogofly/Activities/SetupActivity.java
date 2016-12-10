@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -18,8 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gogoflyapp.gogofly.R;
 import com.gogoflyapp.gogofly.tools.Flight;
+import com.gogoflyapp.gogofly.tools.FlightPriceComparator;
 import com.gogoflyapp.gogofly.tools.Suitcase;
-import com.gogoflyapp.gogofly.tools.Theme;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -40,6 +42,9 @@ public class SetupActivity extends AppCompatActivity {
 
     String accessToken = null;
     String expires_in = null;
+    private String lowest_price;
+    private String user_max_price;
+    private String higest_price;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -58,14 +63,9 @@ public class SetupActivity extends AppCompatActivity {
         imageViewGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //System.out.println(createBase64("5dx9xyxnkrpbxx5bj4dmq7rd:26yA3kRsyQ"));
                 phoneHome();
-                //createFakeFlights();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
-//                EditText editText = (EditText) findViewById(R.id.edit_message);
-//                String message = editText.getText().toString();
-//                intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
             }
         });
@@ -79,31 +79,6 @@ public class SetupActivity extends AppCompatActivity {
         String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
 
         requestWithSomeHttpHeaders(url, auth);
-    }
-
-    /**
-     * Method to create token for app to use to talk to the KLM Server.
-     */
-    private void createToken() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://www.ite1.klm.com/oauthcust/oauth/token";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        System.out.println(response.substring(0, 500));
-                        // mTextView.setText("Response is: "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Go Go Fly!");
-                // mTextView.setText("That didn't work!");
-            }
-        });
     }
 
     private String createBase64(String key_secrit) {
@@ -233,7 +208,7 @@ public class SetupActivity extends AppCompatActivity {
             fake_flights.add(new_flight);
         }
 
-        Suitcase.getInstance().setFlights(fake_flights);
+        Suitcase.getInstance().setTotalFlights(fake_flights);
     }
      */
 
@@ -305,7 +280,9 @@ public class SetupActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Suitcase.getInstance().setFlights(new_flights);
+        Suitcase.getInstance().setTotalFlights(new_flights);
+
+        setOfferSlider(new_flights);
     }
 
     private String getFakeTime() {
@@ -372,6 +349,28 @@ public class SetupActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    /**
+     * Function to make this slider great again!
+     */
+    private void setOfferSlider(ArrayList<Flight> all_flights) {
+        System.out.println("All flights: " + all_flights.size());
+
+        // First find the lowest and the hi-est.
+        Collections.sort(all_flights, new FlightPriceComparator());
+        lowest_price = all_flights.get(0).getPrice();
+        higest_price = all_flights.get(all_flights.size() -1).getPrice();
+
+        TextView textViewRange = (TextView) findViewById(R.id.textView_setup_price_range);
+        TextView textViewMax = (TextView) findViewById(R.id.textView_setup_price_max);
+        textViewMax.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro),higest_price));
+
+
+
+        System.out.println(all_flights.get(0).getPrice());
+        System.out.println(all_flights.get(all_flights.size() -1).getPrice());
+
     }
 
 }
