@@ -14,13 +14,40 @@
         <include layout="@layout/layout_header"
             android:id="@+id/relativeLayout_header" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout_selector"
+            android:layout_below="@+id/relativeLayout_header">
+
+            <TextView
+                android:text="@string/overview_destination"
+                android:id="@+id/textView_overview_selector"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textSize="33sp"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal|bold"
+                android:layout_margin="@dimen/header_icon_start"/>
+
+            <Switch
+                android:text="@string/overview_selector_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="51dp"
+                android:layout_margin="@dimen/header_icon_start"/>
+        </RelativeLayout>
+
         <ListView
-            android:layout_below="@+id/relativeLayout_header"
+            android:layout_below="@+id/relativeLayout_selector"
             android:id="@+id/listView_flights"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="10.0sp" />
+            android:divider="@android:color/transparent"/>
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

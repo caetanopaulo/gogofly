@@ -7,4 +7,6 @@
     <dimen name="header_icon_top">8dp</dimen>
     <dimen name="header_icon_half">12dp</dimen>
     <dimen name="header_icon_start">16dp</dimen>
+
+    <dimen name="list_item_padding">8dp</dimen>
 </resources>

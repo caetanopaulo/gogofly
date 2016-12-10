@@ -10,6 +10,15 @@
     <string name="setup_days_max">21</string>
     <string name="setup_num_flights">flights available</string>
 
+    <string name="overview_destination">Destination</string>
+    <string name="overview_selector_destination">Destination</string>
+    <string name="overview_selector_time">Time</string>
+
+    <string name="list_item_arrival">Arrival</string>
+    <string name="list_item_cash">Ca$h</string>
+    <string name="list_item_time">HH:MM</string>
+    <string name="list_item_next">></string>
+
     <!-- Money -->
     <string name="money_euro">€ %s</string>
     <string name="money_dollar">$ %s</string>

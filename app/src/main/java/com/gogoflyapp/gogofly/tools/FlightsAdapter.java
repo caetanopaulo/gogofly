@@ -17,8 +17,10 @@ import java.util.ArrayList;
  * ArrayAdapter adapted to show a list of flights.
  */
 public class FlightsAdapter extends ArrayAdapter<Flight> {
-    public FlightsAdapter(Context context, ArrayList<Flight> users) {
-        super(context, 0, users);
+    Context context;
+    public FlightsAdapter(Context context, ArrayList<Flight> flights) {
+        super(context, 0, flights);
+        this.context = context;
     }
 
 
@@ -39,14 +41,19 @@ public class FlightsAdapter extends ArrayAdapter<Flight> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_flight, parent, false);
         }
 
+        // ListItem Background color.
+        if (position % 2 == 0) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.colorAlmostGrey));
+        } else {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.colorAlmostWhite));
+        }
+
         // Lookup view for data population
-        TextView tvFrom = (TextView) convertView.findViewById(R.id.listItem_from);
         TextView tvTo = (TextView) convertView.findViewById(R.id.listItem_to);
         TextView tvDepartureTime = (TextView) convertView.findViewById(R.id.listItem_departure);
         TextView tvPrice = (TextView) convertView.findViewById(R.id.listItem_price);
 
         // Populate the data into the template view using the data object
-        tvFrom.setText(flight.getDeparture_loc());
         tvTo.setText(flight.getArrival_loc());
         tvDepartureTime.setText(flight.getDeparture_time());
         tvPrice.setText(flight.getPrice());
