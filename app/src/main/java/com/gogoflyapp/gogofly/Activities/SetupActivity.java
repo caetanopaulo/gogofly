@@ -205,9 +205,6 @@ public class SetupActivity extends AppCompatActivity {
                         // response
                         Log.d("Response", response);
 
-
-
-
                     }
                 },
                 new Response.ErrorListener()
@@ -222,11 +219,7 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<String, String>();
-                //String creds = String.format("%s:%s","k.flummox@gmail.com","CEzfw5tXKLM");
-                //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
-
                 String authTravelLocations = "Bearer "+accessToken;
-                //String auth = "Basic OHVzem1janl1YWI1OHF6ZGU1bXJoNTdlOmdhaFRleWo5R0g=";
                 params.put("Authorization", authTravelLocations);
                 return params;
             }
