@@ -8,7 +8,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,6 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -314,10 +318,6 @@ public class SetupActivity extends AppCompatActivity {
         return time;
     }
 
-    private String getFakePrice() {
-        return String.format(getString(R.string.money_euro), Integer.toString(new Random().nextInt(125) + 25)) + ",00";
-    }
-
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -365,10 +365,43 @@ public class SetupActivity extends AppCompatActivity {
         Collections.sort(all_flights, new FlightPriceComparator());
         lowest_price = all_flights.get(0).getPrice();
         higest_price = all_flights.get(all_flights.size() -1).getPrice();
+        user_max_price = Double.parseDouble(lowest_price) * 2 +"";
 
-        TextView textViewRange = (TextView) findViewById(R.id.textView_setup_price_range);
-        TextView textViewMax = (TextView) findViewById(R.id.textView_setup_price_max);
-        textViewMax.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro),higest_price));
+        // Price range
+        /*
+        final TextView textViewRange = (TextView) findViewById(R.id.textView_setup_price_range);
+        textViewRange.setText(String.format(getResources().getString(R.string.setup_price_range), lowest_price, user_max_price));
+        */
+
+        // Max price
+        int max_100ish = (int) ((Double.parseDouble(higest_price) / Double.parseDouble("100")) * Double.parseDouble(Integer.toString(20)));
+        final TextView textViewUserMaxPayment = (TextView) findViewById(R.id.textView_setup_price_max);
+        textViewUserMaxPayment.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro), Integer.toString(max_100ish) + ".00"));
+
+        SeekBar seekBarPrice = (SeekBar) findViewById(R.id.seekBar_price);
+        seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+                int max_100ish = (int) ((Double.parseDouble(higest_price) / Double.parseDouble("100")) * Double.parseDouble(Integer.toString(progresValue)));
+                user_max_price = Integer.toString(max_100ish) + ".00";
+                textViewUserMaxPayment.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro), user_max_price));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // System.out.println(progress);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // System.out.println(progress + " Stopped");
+                // Maybe set somewhere else?
+            }
+        });
+
 
 
 

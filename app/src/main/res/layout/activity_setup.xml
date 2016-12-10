@@ -68,7 +68,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/text_view_setup_price" />
 
-
+                <!--
                 <TextView
                     android:text="@string/setup_price_range"
                     android:textColor="@color/colorAccent"
@@ -78,15 +78,19 @@
                     android:layout_below="@+id/seekBar_price"
                     android:layout_alignStart="@+id/seekBar_price"
                     android:textStyle="normal|bold" />
+                -->
 
                 <TextView
                     android:text="@string/setup_price_max"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView_setup_price_max"
                     android:textAlignment="textStart"
-                    android:layout_below="@+id/textView_price_sub"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignTop="@+id/text_view_setup_price"
+                    android:layout_alignParentEnd="true"
+                    android:textStyle="normal|bold"/>
+
 
             </RelativeLayout>
 
