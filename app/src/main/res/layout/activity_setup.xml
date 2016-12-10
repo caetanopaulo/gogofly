@@ -1,291 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_setup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.gogoflyapp.gogofly.Activities.SetupActivity">
-    <!--
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    -->
-    <include layout="@layout/layout_header"
-        android:id="@+id/include_setup_header" />
 
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout_header"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_setup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorAccent">
+        android:layout_height="match_parent"
+        tools:context="com.gogoflyapp.gogofly.Activities.SetupActivity">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/app_icon_original"
-            android:layout_marginTop="@dimen/header_icon_top"
-            android:layout_marginStart="@dimen/header_icon_start"
-            android:layout_marginBottom="@dimen/header_icon_top"/>
+        <include layout="@layout/layout_header"
+            android:id="@+id/relativeLayout_header" />
 
-        <ImageView
-            android:id="@+id/imageView_user"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_user_icon"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/header_icon_half"
-            android:layout_marginEnd="@dimen/header_icon_start"
-            android:layout_marginBottom="@dimen/header_icon_top"/>
+        <RelativeLayout
+            android:id="@+id/relativeLayout_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout_header"
+            android:layout_alignParentStart="true">
 
-        <ImageView
-            android:id="@+id/imageView_ticket"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_ticket"
-            android:layout_marginTop="@dimen/header_icon_half"
-            android:layout_marginEnd="@dimen/header_icon_start"
-            android:layout_toStartOf="@+id/imageView_user" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relativeLayout_slider_price"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="@dimen/header_icon_start">
 
-    </RelativeLayout>
+                <TextView
+                    android:text="@string/setup_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_view_setup_price"
+                    android:layout_alignParentStart="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:fontFamily="sans-serif"
+                    android:textSize="30sp"
+                    android:lineSpacingExtra="8sp"
+                    android:textStyle="normal|bold"
+                    android:layout_marginStart="@dimen/header_icon_half"
+                    android:layout_marginTop="@dimen/header_icon_half"
+                    android:layout_marginEnd="@dimen/header_icon_half"/>
+
+                <TextView
+                    android:text="@string/setup_price_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_price_sub"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:layout_below="@+id/text_view_setup_price"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/seekBar_price"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textAlignment="center" />
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_view_setup_price"
+                    android:id="@+id/seekBar_price"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/text_view_setup_price" />
 
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout_header"
-        android:layout_alignParentStart="true">
+                <TextView
+                    android:text="@string/setup_price_range"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_setup_price_range"
+                    android:layout_below="@+id/seekBar_price"
+                    android:layout_alignStart="@+id/seekBar_price"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:text="@string/setup_price_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_setup_price_max"
+                    android:textAlignment="textStart"
+                    android:layout_below="@+id/textView_price_sub"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relativeLayout_slider_days"
+                android:layout_below="@+id/relativeLayout_slider_price"
+                android:layout_margin="@dimen/header_icon_start" >
+
+                <TextView
+                    android:text="@string/setup_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_setup_days"
+                    android:layout_alignParentStart="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:fontFamily="sans-serif"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold"
+                    android:layout_marginStart="@dimen/header_icon_half"
+                    android:layout_marginTop="@dimen/header_icon_half"
+                    android:layout_marginEnd="@dimen/header_icon_half"/>
+
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView_setup_days"
+                    android:id="@+id/seekBar_days"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/textView_setup_days" />
+
+                <TextView
+                    android:text="@string/setup_price_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_days_sub"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:layout_below="@+id/seekBar_days"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/seekBar_days"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/setup_days_range"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_setup_days_range"
+                    android:layout_below="@+id/seekBar_days"
+                    android:layout_alignStart="@+id/seekBar_days"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:text="@string/setup_days_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_setup_days_max"
+                    android:textAlignment="textStart"
+                    android:layout_below="@+id/seekBar_days"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout_slider_price"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/relativeLayout_input"
             android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout_checkbox">
+
+            <CheckBox
+                android:text="@string/check_box_europe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_eurozone"
+                android:scaleX="0.70"
+                android:scaleY="0.70"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/header_icon_half"/>
+
+
+            <CheckBox
+                android:text="@string/check_box_usa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_usa"
+                android:scaleX="0.70"
+                android:scaleY="0.70"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/checkBox_eurozone" />
+
+            <CheckBox
+                android:text="@string/check_box_australia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_australia"
+                android:scaleX="0.70"
+                android:scaleY="0.70"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/checkBox_usa" />
+
+            <CheckBox
+                android:text="@string/check_box_asia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_immunization"
+                android:scaleX="0.70"
+                android:scaleY="0.70"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/checkBox_australia"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:background="@drawable/num_flights_border"
+            android:layout_above="@+id/imageViewGoGoFly"
+            android:layout_width="wrap_content"
+            android:id="@+id/relativeLayout_num_flights_available"
             android:layout_margin="@dimen/header_icon_start">
 
             <TextView
-                android:text="@string/setup_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_view_setup_price"
-                android:layout_alignParentStart="true"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:fontFamily="sans-serif"
-                android:textSize="30sp"
-                android:lineSpacingExtra="8sp"
-                android:textStyle="normal|bold"
-                android:layout_marginStart="@dimen/header_icon_half"
-                android:layout_marginTop="@dimen/header_icon_half"
-                android:layout_marginEnd="@dimen/header_icon_half"/>
-
-            <TextView
-                android:text="@string/setup_price_sub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_price_sub"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:layout_below="@+id/text_view_setup_price"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/seekBar_price"
-                android:textColor="@color/colorTextSecondary"
-                android:textAlignment="center" />
-
-            <SeekBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_view_setup_price"
-                android:id="@+id/seekBar_price"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/text_view_setup_price" />
-
-
-            <TextView
-                android:text="@string/setup_price_range"
+                android:text="3"
                 android:textColor="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView_setup_price_range"
-                android:layout_below="@+id/seekBar_price"
-                android:layout_alignStart="@+id/seekBar_price"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:text="@string/setup_price_max"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_setup_price_max"
-                android:textAlignment="textStart"
-                android:layout_below="@+id/textView_price_sub"
-                android:layout_alignParentEnd="true" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout_slider_days"
-            android:layout_below="@+id/relativeLayout_slider_price"
-            android:layout_margin="@dimen/header_icon_start" >
-
-            <TextView
-                android:text="@string/setup_days"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_setup_days"
-                android:layout_alignParentStart="true"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:fontFamily="sans-serif"
-                android:textSize="30sp"
-                android:textStyle="normal|bold"
-                android:layout_marginStart="@dimen/header_icon_half"
-                android:layout_marginTop="@dimen/header_icon_half"
+                android:textStyle="normal|italic"
+                android:id="@+id/textView_num"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/textView_num_flights"
                 android:layout_marginEnd="@dimen/header_icon_half"/>
 
-
-            <SeekBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_setup_days"
-                android:id="@+id/seekBar_days"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/textView_setup_days" />
-
             <TextView
-                android:text="@string/setup_price_sub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_days_sub"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:layout_below="@+id/seekBar_days"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/seekBar_days"
+                android:text="@string/setup_num_flights"
                 android:textColor="@color/colorTextSecondary"
-                android:textAlignment="center" />
-
-            <TextView
-                android:text="@string/setup_days_range"
-                android:textColor="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView_setup_days_range"
-                android:layout_below="@+id/seekBar_days"
-                android:layout_alignStart="@+id/seekBar_days"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:text="@string/setup_days_max"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_setup_days_max"
-                android:textAlignment="textStart"
-                android:layout_below="@+id/seekBar_days"
+                android:id="@+id/textView_num_flights"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="normal|italic"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true" />
-
         </RelativeLayout>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout_input"
-        android:layout_alignParentStart="true"
-        android:id="@+id/relativeLayout_checkbox">
-
-        <CheckBox
-            android:text="@string/check_box_europe"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox_eurozone"
-            android:scaleX="0.70"
-            android:scaleY="0.70"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/header_icon_half"/>
+            android:src="@drawable/gogo_button"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/imageViewGoGoFly"
+            android:padding="10sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"/>
 
-
-        <CheckBox
-            android:text="@string/check_box_usa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox_usa"
-            android:scaleX="0.70"
-            android:scaleY="0.70"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/checkBox_eurozone" />
-
-        <CheckBox
-            android:text="@string/check_box_australia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox_australia"
-            android:scaleX="0.70"
-            android:scaleY="0.70"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/checkBox_usa" />
-
-        <CheckBox
-            android:text="@string/check_box_asia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox_immunization"
-            android:scaleX="0.70"
-            android:scaleY="0.70"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/checkBox_australia"/>
 
     </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
 
-    <RelativeLayout
-        android:layout_height="wrap_content"
-        android:background="@drawable/num_flights_border"
-        android:layout_above="@+id/imageViewGoGoFly"
-        android:layout_width="wrap_content"
-        android:id="@+id/relativeLayout_num_flights_available"
-        android:layout_margin="@dimen/header_icon_start">
-
-        <TextView
-            android:text="3"
-            android:textColor="@color/colorAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textStyle="normal|italic"
-            android:id="@+id/textView_num"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/textView_num_flights"
-            android:layout_marginEnd="@dimen/header_icon_half"/>
-
-        <TextView
-            android:text="@string/setup_num_flights"
-            android:textColor="@color/colorTextSecondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_num_flights"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textStyle="normal|italic"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/gogo_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/imageViewGoGoFly"
-        android:padding="10sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginRight="15sp"
-        android:layout_marginTop="15sp"
-        android:layout_marginBottom="15sp"/>
-
-
-</RelativeLayout>

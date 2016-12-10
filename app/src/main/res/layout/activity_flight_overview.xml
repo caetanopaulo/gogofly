@@ -7,20 +7,20 @@
     android:fitsSystemWindows="true"
     tools:context="com.gogoflyapp.gogofly.Activities.FlightsOverviewActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent">
 
-    </android.support.design.widget.AppBarLayout>
+        <include layout="@layout/layout_header"
+            android:id="@+id/relativeLayout_header" />
 
-    <include layout="@layout/content_flight_overview" />
-
-    <ListView
-        android:id="@+id/listView_flights"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp" />
+        <ListView
+            android:layout_below="@+id/relativeLayout_header"
+            android:id="@+id/listView_flights"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp" />
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
