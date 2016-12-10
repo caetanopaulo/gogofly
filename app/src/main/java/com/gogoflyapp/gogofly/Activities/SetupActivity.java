@@ -47,6 +47,7 @@ public class SetupActivity extends AppCompatActivity {
     private String lowest_price;
     private String user_max_price;
     private String higest_price;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -80,17 +81,21 @@ public class SetupActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    void filterByMaxPrice(long user_max_price){
+    private int filterByMaxPrice(long user_max_price){
         ArrayList<Flight> flights = Suitcase.getInstance().getTotalFlights();
         ArrayList<Flight> flightsToRemove = new ArrayList<Flight>();
+        ArrayList<Flight> selectedFlights = new ArrayList<Flight>();
+        selectedFlights.addAll(flights);
 
         for (Flight flight: flights) {
             if(Long.parseLong(flight.getPrice()) > user_max_price){
                 flightsToRemove.add(flight);
             }
         }
-        flights.removeAll(flightsToRemove);
-        Suitcase.getInstance().setTotalFlights(flights);
+        selectedFlights.removeAll(flightsToRemove);
+
+        Suitcase.getInstance().setSelectedFlights(selectedFlights);
+        return selectedFlights.size();
     }
 
     private void phoneHome() {
@@ -393,6 +398,8 @@ public class SetupActivity extends AppCompatActivity {
         final TextView textViewUserMaxPayment = (TextView) findViewById(R.id.textView_setup_price_max);
         textViewUserMaxPayment.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro), Integer.toString(max_100ish) + ".00"));
 
+        final TextView num_flights_left = (TextView) findViewById(R.id.textView_num_flights);
+
         SeekBar seekBarPrice = (SeekBar) findViewById(R.id.seekBar_price);
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
@@ -414,6 +421,11 @@ public class SetupActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // System.out.println(progress + " Stopped");
                 // Maybe set somewhere else?
+                int numberOfFlights = filterByMaxPrice(Math.round(Double.parseDouble(user_max_price)));
+
+                //TextView numberOfFlightsText = (TextView)findViewById(R.id.textView_num_flights);
+                num_flights_left.setText(numberOfFlights);
+
             }
         });
 

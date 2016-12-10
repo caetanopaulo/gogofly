@@ -27,7 +27,7 @@ public class FlightsOverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flight_overview);
 
         // Make sure we have data to work with.
-        flights = Suitcase.getInstance().getTotalFlights();
+        flights = Suitcase.getInstance().getSelectedFlights();
         showFlights();
     }
 
