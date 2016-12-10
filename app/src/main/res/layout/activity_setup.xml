@@ -101,36 +101,46 @@
         android:layout_alignParentStart="true" >
 
         <CheckBox
-            android:text="@string/check_box_eurozone"
+            android:text="@string/check_box_europe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:id="@+id/checkBox_eurozone"
+            android:scaleX="0.70"
+            android:scaleY="0.70"
             android:layout_alignParentStart="true"
-            android:id="@+id/checkBox_eurozone" />
+            android:layout_marginStart="@dimen/header_icon_half"/>
+
 
         <CheckBox
             android:text="@string/check_box_usa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_usa"
-            android:layout_below="@+id/checkBox_eurozone"
-            android:layout_alignParentStart="true" />
+            android:scaleX="0.70"
+            android:scaleY="0.70"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/checkBox_eurozone" />
 
         <CheckBox
-            android:text="@string/check_box_immunization"
+            android:text="@string/check_box_australia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox_australia"
+            android:scaleX="0.70"
+            android:scaleY="0.70"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/checkBox_usa" />
+
+        <CheckBox
+            android:text="@string/check_box_asia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_immunization"
-            android:layout_below="@+id/checkBox_usa"
-            android:layout_alignParentStart="true" />
+            android:scaleX="0.70"
+            android:scaleY="0.70"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/checkBox_australia"/>
 
-        <CheckBox
-            android:text="@string/check_box_nice_attendants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/checkBox_immunization"
-            android:layout_alignParentStart="true"
-            android:id="@+id/checkBox_attendants" />
 
     </RelativeLayout>
 
