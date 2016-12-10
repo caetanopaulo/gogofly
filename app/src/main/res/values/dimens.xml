@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="header_icon_top">8dp</dimen>
+    <dimen name="header_icon_half">12dp</dimen>
+    <dimen name="header_icon_start">16dp</dimen>
 </resources>
