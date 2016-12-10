@@ -398,7 +398,7 @@ public class SetupActivity extends AppCompatActivity {
         final TextView textViewUserMaxPayment = (TextView) findViewById(R.id.textView_setup_price_max);
         textViewUserMaxPayment.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro), Integer.toString(max_100ish) + ".00"));
 
-        final TextView num_flights_left = (TextView) findViewById(R.id.textView_num_flights);
+        final TextView num_flights_left = (TextView) findViewById(R.id.textView_num);
 
         SeekBar seekBarPrice = (SeekBar) findViewById(R.id.seekBar_price);
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -424,7 +424,7 @@ public class SetupActivity extends AppCompatActivity {
                 int numberOfFlights = filterByMaxPrice(Math.round(Double.parseDouble(user_max_price)));
 
                 //TextView numberOfFlightsText = (TextView)findViewById(R.id.textView_num_flights);
-                num_flights_left.setText(numberOfFlights);
+                num_flights_left.setText(numberOfFlights+"");
 
             }
         });
