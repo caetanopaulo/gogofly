@@ -21,6 +21,24 @@ public class Flight {
         super();
     };
 
+    // Country_name
+    // Country_code
+    // Destination_name
+    // Destination_code
+    // Departure_date
+    // Departure_time
+    // Return_date
+    // Return_time
+
+    // Price
+    // Currency
+    // Flight_time
+    // Popularity
+
+    // ArrayList themes
+
+
+
     public Flight(String name, String code, String departure_loc, String departure_time, String arrival_loc, String price) {
         this.name = name;
         this.code = code;

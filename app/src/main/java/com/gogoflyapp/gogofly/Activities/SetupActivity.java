@@ -32,11 +32,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-
-import static android.R.attr.country;
 
 public class SetupActivity extends AppCompatActivity {
 
@@ -53,12 +50,15 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
+        // get data from server
+        phoneHome();
+
         ImageView imageViewGo = (ImageView) findViewById(R.id.imageViewGoGoFly);
         imageViewGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //System.out.println(createBase64("5dx9xyxnkrpbxx5bj4dmq7rd:26yA3kRsyQ"));
-                fireFolley();
+                phoneHome();
                 //createFakeFlights();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
@@ -73,38 +73,11 @@ public class SetupActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void fireFolley() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // String url ="https://api.klm.com/travel/flightoffers/reference-data";
-        // https://www.klm.com/oauthcust/oauth/token
-        //String url ="https://www.klm.com/oauthcust/oauth/token?grand_type=client_credentials";
+    private void phoneHome() {
         String url = "https://www.klm.com/oauthcust/oauth/token?grant_type=client_credentials";
-        // Authorization
         String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
 
         requestWithSomeHttpHeaders(url, auth);
-
-        /*
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        System.out.println(response); // .substring(0,500)
-                        // mTextView.setText("Response is: "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Go Go Fly, but not today!");
-                // mTextView.setText("That didn't work!");
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-        */
     }
 
     /**
@@ -143,15 +116,13 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     public void requestWithSomeHttpHeaders(String url, String value_start) {
-        final String value = value_start;
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response);
-
+                        Log.d("Response succes!", response);
 
                         JSONObject reader = null;
                         try {
@@ -167,21 +138,22 @@ public class SetupActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+                        /*
                         Log.d("access token: ", accessToken);
                         Log.d("expires in: ", expires_in);
+                        */
 
                         if (accessToken != null) {
                             String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-02-23&maxDepartureDate=2017-01-22&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
                             String authTravelLocations = "Bearer " + accessToken;
 
-                            System.out.println("Using Travel Location Bearer: " + authTravelLocations);
+                            // System.out.println("Using Travel Location Bearer: " + authTravelLocations);
 
                             requestTravelLocationsWithSomeHttpHeaders(urlTravelLocations, authTravelLocations);
                         } else
                             System.out.println("NULL Travel Location Bearer!");
 
-
-                    }
+                        }
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -194,7 +166,7 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<String, String>();
-                String creds = String.format("%s:%s", "k.flummox@gmail.com", "CEzfw5tXKLM");
+                // String creds = String.format("%s:%s", "k.flummox@gmail.com", "CEzfw5tXKLM");
                 //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
 
                 String auth = "Basic OHVzem1janl1YWI1OHF6ZGU1bXJoNTdlOmdhaFRleWo5R0g=";
@@ -203,9 +175,13 @@ public class SetupActivity extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
-
     }
 
+    /**
+     * The real magic, calling real data.
+     * @param url
+     * @param value_start
+     */
     public void requestTravelLocationsWithSomeHttpHeaders(String url, String value_start) {
         final String value = value_start;
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -219,11 +195,10 @@ public class SetupActivity extends AppCompatActivity {
                         JSONObject reader = null;
                         try {
                             reader = new JSONObject(response);
+                            parseData(reader);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -243,9 +218,11 @@ public class SetupActivity extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
-
     }
 
+    /**
+     * Faking it.
+     */
     private void createFakeFlights() {
         ArrayList<Flight> fake_flights = new ArrayList<>();
         String amsterdam = "Schiphol";
@@ -266,31 +243,36 @@ public class SetupActivity extends AppCompatActivity {
         try {
             _embeddedArrJSON = dataObj.getJSONArray("_embedded");
 
-            for (int i=0;i< _embeddedArrJSON.length(); i++)
-            {
+            for (int i=0;i< _embeddedArrJSON.length(); i++) {
                 JSONObject json = _embeddedArrJSON.getJSONObject(i);
 
                 //System.out.println(json.getString("Pref1"));
-                //System.out.println(json.getString("Pref2"));
+                // System.out.println(json);
 
-                String code = json.getString("code");
-                String name = json.getString("name");
+                // ,,,"children":[{"code":"AAL","name":"Aalborg","description":"Aalborg - Aalborg (AAL), Denmark","coordinates":{"latitude":57.09306,"longitude":9.85}}],"fare":{"origin":{"code":"AMS","name":"Schiphol","description":"Amsterdam - Schiphol (AMS), Netherlands","coordinates":{"latitude":52.30833,"longitude":4.76806}},"departureDate":"2017-01-04","returnDate":"2017-01-07","amount":{"currency":"EUR","price":178.59},"possibleTravelTime":4500000},"parent":{"code":"DK","name":"Denmark","description":"Denmark (DK)","coordinates":{"latitude":56,"longitude":10},"parent":{"code":"EUR","name":"Europe","description":"Europe (EUR)","coordinates":{"latitude":51.179,"longitude":11.25}}},"popularity":5,"themes":[{"icon":"&#xe617;","name":"Arts & Culture","category":"ART"},{"icon":"&#xe614;","name":"Food & Drinks","category":"CUL"},{"icon":"&#xe60a;","name":"Romance","category":"ROM"}]
+                String code = json.getString("code"); // "code":"AAL",
+                String name = json.getString("name"); // "name":"Aalborg"
+                // "description":"Aalborg (AAL)"
+                // "coordinates":{"latitude":57.08944,"longitude":9.84889}
+
+                // parent => parent => code = EUR
 
                 JSONObject fareJson = json.getJSONObject("fare");
-                fareJson.get("")
+                //fareJson.get("");
 
-                Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
-                fake_flights.add(new_flight);
+                //Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
+                //fake_flights.add(new_flight);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
+        /*
         for (String city : destinations) {
 
         }
+        */
 
         Suitcase.getInstance().setFlights(fake_flights);
     }
