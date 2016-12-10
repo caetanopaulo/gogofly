@@ -59,7 +59,7 @@ public class FlightsAdapter extends ArrayAdapter<Flight> {
 
         String currency = flight.getCurrency();
         System.out.println(currency);
-        tvPrice.setText(String.format(context.getResources().getString(R.string.money_euro), flight.getPrice()));
+        tvPrice.setText(String.format(context.getResources().getString(R.string.flight_price), flight.getPrice()));
 
         // Return the completed view to render on screen
         return convertView;

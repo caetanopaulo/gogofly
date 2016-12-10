@@ -22,6 +22,7 @@
 
     <!-- Money -->
     <string name="money_euro">€</string>
+    <string name="flight_price">€ %1$s</string>
     <string name="money_dollar">$</string>
 
     <!-- Checkboxes -->
