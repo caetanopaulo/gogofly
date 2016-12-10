@@ -263,7 +263,7 @@ public class SetupActivity extends AppCompatActivity {
                 // Cash
                 JSONObject json_amount = json_fare.getJSONObject("amount");
                 new_flight.setCurrency(json_amount.getString("currency"));
-                new_flight.setPrice(json_amount.getString("price"));
+                new_flight.setPrice(fixPrice(Double.parseDouble(json_amount.getString("price")))+"");
 
                 // Travel time
                 String json_amount_possibleTravelTime = null;
@@ -306,6 +306,10 @@ public class SetupActivity extends AppCompatActivity {
         }
 
         Suitcase.getInstance().setFlights(new_flights);
+    }
+
+    private long fixPrice(double price) {
+        return Math.round(price / 2);
     }
 
     private String getFakeTime() {
