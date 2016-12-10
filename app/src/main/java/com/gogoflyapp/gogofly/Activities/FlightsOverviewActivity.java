@@ -1,6 +1,7 @@
 package com.gogoflyapp.gogofly.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,6 +49,7 @@ public class FlightsOverviewActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 
+                //view.setBackgroundColor(Color.rgb(232,232,232));
                 Intent i = new Intent(getApplicationContext(), FlightViewActivity.class);
                 //If you wanna send any data to nextActicity.class you can use
                 String key = "flight_position_in_Array";
