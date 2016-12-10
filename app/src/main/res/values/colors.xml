@@ -7,4 +7,5 @@
     <color name="colorTextSecondary">#b7b7b7</color>
     <color name="colorSliderBG">#555555</color>
     <color name="colorAlmostWhite">#fffffe</color>
+    <color name="colorAlmostGrey">#bababa</color>
 </resources>

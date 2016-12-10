@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/app_icon_original"
+        android:src="@drawable/app_icon_new"
         android:layout_marginTop="@dimen/header_icon_top"
         android:layout_marginStart="@dimen/header_icon_start"
         android:layout_marginBottom="@dimen/header_icon_top"/>

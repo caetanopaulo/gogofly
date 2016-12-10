@@ -1,8 +1,23 @@
 <resources>
     <string name="app_name">Go Go Fly</string>
     <string name="text_view_setup">Setup</string>
-    <string name="setup_price">Flight Price</string>
-    <string name="setup_days">Days Away</string>
+    <string name="setup_price">OFFER</string>
+    <string name="setup_price_sub">return ticket</string>
+    <string name="setup_days">#DAYS</string>
+    <string name="setup_price_range">%1$s - %2$s</string>
+    <string name="setup_price_max">%s 300</string>
+    <string name="setup_days_range">%1$s - %2$s</string>
+    <string name="setup_days_max">21</string>
+    <string name="setup_num_flights">flights available</string>
+
+    <string name="overview_destination">Destination</string>
+    <string name="overview_selector_destination">Destination</string>
+    <string name="overview_selector_time">Time</string>
+
+    <string name="list_item_arrival">Arrival</string>
+    <string name="list_item_cash">Ca$h</string>
+    <string name="list_item_time">HH:MM</string>
+    <string name="list_item_next">></string>
 
     <!-- Money -->
     <string name="money_euro">€ %s</string>
