@@ -18,15 +18,24 @@ public class Suitcase {
     }
 
     // Data
-    private ArrayList<Flight> flights = new ArrayList<>();
+    private ArrayList<Flight> totalFlights = new ArrayList<>();
+    private ArrayList<Flight> selectedFlights = new ArrayList<>();
 
 
     // Setter & Getters
-    public ArrayList<Flight> getFlights() {
-        return flights;
+    public ArrayList<Flight> getTotalFlights() {
+        return totalFlights;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
+    public void setTotalFlights(ArrayList<Flight> flights) {
+        this.totalFlights = flights;
+    }
+
+    public ArrayList<Flight> getSelectedFlights() {
+        return selectedFlights;
+    }
+
+    public void setSelectedFlights(ArrayList<Flight> selectedFlights) {
+        this.selectedFlights = selectedFlights;
     }
 }

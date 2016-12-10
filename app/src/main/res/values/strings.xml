@@ -3,10 +3,11 @@
     <string name="text_view_setup">Setup</string>
     <string name="setup_price">OFFER</string>
     <string name="setup_price_sub">return ticket</string>
-    <string name="setup_days">#DAYS</string>
+    <string name="setup_days_header">#DAYS</string>
     <string name="setup_price_range">%1$s - %2$s</string>
-    <string name="setup_price_max">%s 300</string>
-    <string name="setup_days_range">%1$s - %2$s</string>
+    <string name="setup_price_max">%1$s %2$s</string>
+    <string name="setup_days_range">%1$d to %2$d %3$s</string>
+    <string name="setup_days_stay">days stay</string>
     <string name="setup_days_max">21</string>
     <string name="setup_num_flights">flights available</string>
 
@@ -20,8 +21,8 @@
     <string name="list_item_next">></string>
 
     <!-- Money -->
-    <string name="money_euro">€ %s</string>
-    <string name="money_dollar">$ %s</string>
+    <string name="money_euro">€</string>
+    <string name="money_dollar">$</string>
 
     <!-- Checkboxes -->
     <string name="check_box_europe">EUROPE</string>
