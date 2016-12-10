@@ -3,11 +3,7 @@ package com.gogoflyapp.gogofly.Activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,8 +14,6 @@ import com.gogoflyapp.gogofly.tools.FlightsAdapter;
 import com.gogoflyapp.gogofly.tools.Suitcase;
 
 import java.util.ArrayList;
-
-import static android.R.attr.value;
 
 /**
  * Activity to show flights to user.
@@ -33,7 +27,7 @@ public class FlightsOverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flight_overview);
 
         // Make sure we have data to work with.
-        flights = Suitcase.getInstance().getFlights();
+        flights = Suitcase.getInstance().getTotalFlights();
         showFlights();
     }
 
