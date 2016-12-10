@@ -219,6 +219,8 @@ public class SetupActivity extends AppCompatActivity {
                         JSONObject reader = null;
                         try {
                             reader = new JSONObject(response);
+                            getAvailableThemes(reader);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -258,41 +260,75 @@ public class SetupActivity extends AppCompatActivity {
         Suitcase.getInstance().setFlights(fake_flights);
     }
 
-    private void parseData(JSONObject dataObj) {
-        ArrayList<Flight> fake_flights = new ArrayList<>();
-        String amsterdam = "Schiphol";
+//    private void parseData(JSONObject dataObj) {
+//        ArrayList<Flight> fake_flights = new ArrayList<>();
+//        String amsterdam = "Schiphol";
+//
+//        JSONArray _embeddedArrJSON = null;
+//        try {
+//            _embeddedArrJSON = dataObj.getJSONArray("_embedded");
+//
+//            for (int i=0;i< _embeddedArrJSON.length(); i++)
+//            {
+//                JSONObject json = _embeddedArrJSON.getJSONObject(i);
+//
+//                //System.out.println(json.getString("Pref1"));
+//                //System.out.println(json.getString("Pref2"));
+//
+//                String code = json.getString("code");
+//                String name = json.getString("name");
+//
+//                JSONObject fareJson = json.getJSONObject("fare");
+//                fareJson.get("")
+//
+//                Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
+//                fake_flights.add(new_flight);
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
-        JSONArray _embeddedArrJSON = null;
+    private HashMap getAvailableThemes(JSONObject dataObj) {
+        HashMap<String,String> availableThemes = new HashMap<String,String>();
+
+        JSONArray embeddedArrJSON = null;
         try {
-            _embeddedArrJSON = dataObj.getJSONArray("_embedded");
+            embeddedArrJSON = dataObj.getJSONArray("_embedded");
 
-            for (int i=0;i< _embeddedArrJSON.length(); i++)
+            for (int i=0;i< embeddedArrJSON.length(); i++)
             {
-                JSONObject json = _embeddedArrJSON.getJSONObject(i);
+                JSONObject embeddedJSONObj = embeddedArrJSON.getJSONObject(i);
 
-                //System.out.println(json.getString("Pref1"));
-                //System.out.println(json.getString("Pref2"));
+                JSONArray availableThemesArr = null;
+                try {
+                    availableThemesArr = embeddedJSONObj.getJSONArray("themes");
+                } catch (JSONException s) {
 
-                String code = json.getString("code");
-                String name = json.getString("name");
+                }
 
-                JSONObject fareJson = json.getJSONObject("fare");
-                fareJson.get("")
+                if (availableThemesArr != null) {
+                    //System.out.println(availableThemesArr.toString());
+                    for (int j=0;j< availableThemesArr.length(); j++) {
+                        JSONObject themesJSONObj = availableThemesArr.getJSONObject(j);
+                        String category = themesJSONObj.getString("category");
+                        String name = themesJSONObj.getString("name");
 
-                Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
-                fake_flights.add(new_flight);
+                        if(!availableThemes.containsKey(category)) {
+                            availableThemes.put(category, name);
+                            //System.out.println("Category: " + category + " Name: " + name);
+                        }
+                    }
+
+                }
+
+
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        for (String city : destinations) {
-
-        }
-
-        Suitcase.getInstance().setFlights(fake_flights);
+        return availableThemes;
     }
 
     private String getFakeTime() {
