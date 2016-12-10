@@ -38,8 +38,8 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //System.out.println(createBase64("5dx9xyxnkrpbxx5bj4dmq7rd:26yA3kRsyQ"));
-                // fireFolley();
-                createFakeFlights();
+                fireFolley();
+                //createFakeFlights();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
 //                EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -133,7 +133,7 @@ public class SetupActivity extends AppCompatActivity {
                 },
                 new Response.ErrorListener()
                 {
-                    @Override
+                    @Overrides
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
                         Log.d("ERROR","error => "+error.toString());
@@ -144,7 +144,9 @@ public class SetupActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<String, String>();
                 String creds = String.format("%s:%s","k.flummox@gmail.com","CEzfw5tXKLM");
-                String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+
+                String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
                 params.put("Authorization", auth);
                 return params;
             }
