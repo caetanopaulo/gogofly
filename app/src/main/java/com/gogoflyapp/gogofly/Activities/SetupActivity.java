@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.gogoflyapp.gogofly.R;
 import com.gogoflyapp.gogofly.tools.Flight;
 import com.gogoflyapp.gogofly.tools.Suitcase;
+import com.gogoflyapp.gogofly.tools.Theme;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -222,7 +223,7 @@ public class SetupActivity extends AppCompatActivity {
 
     /**
      * Faking it.
-     */
+     *
     private void createFakeFlights() {
         ArrayList<Flight> fake_flights = new ArrayList<>();
         String amsterdam = "Schiphol";
@@ -234,9 +235,10 @@ public class SetupActivity extends AppCompatActivity {
 
         Suitcase.getInstance().setFlights(fake_flights);
     }
+     */
 
     private void parseData(JSONObject dataObj) {
-        ArrayList<Flight> fake_flights = new ArrayList<>();
+        ArrayList<Flight> new_flights = new ArrayList<>();
         String amsterdam = "Schiphol";
 
         JSONArray _embeddedArrJSON = null;
@@ -246,35 +248,64 @@ public class SetupActivity extends AppCompatActivity {
             for (int i=0;i< _embeddedArrJSON.length(); i++) {
                 JSONObject json = _embeddedArrJSON.getJSONObject(i);
 
-                //System.out.println(json.getString("Pref1"));
-                // System.out.println(json);
+                Flight new_flight = new Flight(json.getString("name"));
+                new_flight.setDestination_code(json.getString("code"));
 
-                // ,,,"children":[{"code":"AAL","name":"Aalborg","description":"Aalborg - Aalborg (AAL), Denmark","coordinates":{"latitude":57.09306,"longitude":9.85}}],"fare":{"origin":{"code":"AMS","name":"Schiphol","description":"Amsterdam - Schiphol (AMS), Netherlands","coordinates":{"latitude":52.30833,"longitude":4.76806}},"departureDate":"2017-01-04","returnDate":"2017-01-07","amount":{"currency":"EUR","price":178.59},"possibleTravelTime":4500000},"parent":{"code":"DK","name":"Denmark","description":"Denmark (DK)","coordinates":{"latitude":56,"longitude":10},"parent":{"code":"EUR","name":"Europe","description":"Europe (EUR)","coordinates":{"latitude":51.179,"longitude":11.25}}},"popularity":5,"themes":[{"icon":"&#xe617;","name":"Arts & Culture","category":"ART"},{"icon":"&#xe614;","name":"Food & Drinks","category":"CUL"},{"icon":"&#xe60a;","name":"Romance","category":"ROM"}]
-                String code = json.getString("code"); // "code":"AAL",
-                String name = json.getString("name"); // "name":"Aalborg"
-                // "description":"Aalborg (AAL)"
-                // "coordinates":{"latitude":57.08944,"longitude":9.84889}
+                JSONObject json_fare = json.getJSONObject("fare");
 
-                // parent => parent => code = EUR
+                JSONObject json_fare_origin = json_fare.getJSONObject("origin");
+                new_flight.setOrigin_name(json_fare_origin.getString("name"));
+                new_flight.setOrigin_code(json_fare_origin.getString("code"));
 
-                JSONObject fareJson = json.getJSONObject("fare");
-                //fareJson.get("");
+                new_flight.setDeparture_date(json_fare.getString("departureDate"));
+                new_flight.setReturn_date(json_fare.getString("returnDate"));
 
-                //Flight new_flight = new Flight(city, city, amsterdam, getFakeTime(), city, getFakePrice());
-                //fake_flights.add(new_flight);
+                // Cash
+                JSONObject json_amount = json_fare.getJSONObject("amount");
+                new_flight.setCurrency(json_amount.getString("currency"));
+                new_flight.setPrice(json_amount.getString("price"));
+
+                // Travel time
+                String json_amount_possibleTravelTime = null;
+                try {
+                    json_amount_possibleTravelTime = json_fare.getString("possibleTravelTime");
+                    // System.out.println(json_fare.getString("possibleTravelTime"));
+                    // json_amount_possibleTravelTime = json_fare.getString("possibleTravelTime");
+                } catch (JSONException jse) {
+                    // jse.printStackTrace();
+                }
+
+                if (json_amount_possibleTravelTime != null) {
+                    new_flight.setFlight_time(json_amount_possibleTravelTime);
+                } else {
+                    new_flight.setFlight_time(null);
+                }
+
+                // Popularity
+                String popularity = null;
+                try {
+                    popularity = json.getString("popularity");
+                } catch (JSONException jse) {
+                    // jse.printStackTrace();
+                }
+
+                if (popularity != null) {
+                    new_flight.setPopularity(popularity);
+                } else {
+                    new_flight.setPopularity(null);
+                }
+
+                new_flight.setDeparture_time(getFakeTime());
+
+                // System.out.println(json.getString("popularity"));
+                new_flights.add(new_flight);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        /*
-        for (String city : destinations) {
-
-        }
-        */
-
-        Suitcase.getInstance().setFlights(fake_flights);
+        Suitcase.getInstance().setFlights(new_flights);
     }
 
     private String getFakeTime() {
@@ -342,4 +373,5 @@ public class SetupActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
 }
