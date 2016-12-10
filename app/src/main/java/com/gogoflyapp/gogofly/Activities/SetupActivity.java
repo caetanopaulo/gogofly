@@ -20,13 +20,21 @@ import com.gogoflyapp.gogofly.tools.Flight;
 import com.gogoflyapp.gogofly.tools.Suitcase;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static android.R.attr.country;
+
 public class SetupActivity extends AppCompatActivity {
+
+    String accessToken  = null;
+    String expires_in = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,7 @@ public class SetupActivity extends AppCompatActivity {
         String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
 
         requestWithSomeHttpHeaders(url, auth);
+
         /*
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -129,6 +138,36 @@ public class SetupActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
+
+
+                        JSONObject reader = null;
+                        try {
+                            reader = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            accessToken = reader.getString("access_token");
+                            expires_in = reader.getString("expires_in");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Log.d("access token: ", accessToken);
+                        Log.d("expires in: ", expires_in);
+
+                        if(accessToken != null){
+                            String urlTravelLocations ="https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-02-23&maxDepartureDate=2017-01-22&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
+                            String authTravelLocations = "Bearer "+accessToken;
+
+                            System.out.println("Using Travel Location Bearer: "+authTravelLocations);
+
+                            requestTravelLocationsWithSomeHttpHeaders(urlTravelLocations, authTravelLocations);
+                        }else
+                            System.out.println("NULL Travel Location Bearer!");
+
+
                     }
                 },
                 new Response.ErrorListener()
@@ -146,8 +185,49 @@ public class SetupActivity extends AppCompatActivity {
                 String creds = String.format("%s:%s","k.flummox@gmail.com","CEzfw5tXKLM");
                 //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
 
-                String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE=";
+                String auth = "Basic OHVzem1janl1YWI1OHF6ZGU1bXJoNTdlOmdhaFRleWo5R0g=";
                 params.put("Authorization", auth);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+
+    }
+
+    public void requestTravelLocationsWithSomeHttpHeaders(String url, String value_start) {
+        final String value = value_start;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+
+
+
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR","error => "+error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                //String creds = String.format("%s:%s","k.flummox@gmail.com","CEzfw5tXKLM");
+                //String auth = "Basic NWR4OXh5eG5rcnBieHg1Ymo0ZG1xN3JkOjI2eUEza1JzeVE="; // + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+
+                String authTravelLocations = "Bearer "+accessToken;
+                //String auth = "Basic OHVzem1janl1YWI1OHF6ZGU1bXJoNTdlOmdhaFRleWo5R0g=";
+                params.put("Authorization", authTravelLocations);
                 return params;
             }
         };
