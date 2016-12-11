@@ -4,11 +4,11 @@
     <corners
         android:radius="0dp" />
     <padding
-        android:left="10dp"
-        android:right="10dp"
-        android:top="10dp"
-        android:bottom="10dp"/>
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp"
+        android:bottom="0dp"/>
     <stroke
-        android:width="2dp"
+        android:width="0dp"
         android:color="@color/colorTextSecondary" />
 </shape>

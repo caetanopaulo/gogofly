@@ -163,41 +163,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBox_eurozone"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
+                android:scaleX="0.80"
+                android:scaleY="0.80"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/header_icon_half"/>
+                android:layout_marginStart="@dimen/header_icon_half"
+                android:checked="true"/>
 
-
-            <CheckBox
-                android:text="@string/check_box_usa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_usa"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_eurozone" />
-
-            <CheckBox
-                android:text="@string/check_box_australia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_australia"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_usa" />
 
             <CheckBox
                 android:text="@string/check_box_asia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBox_immunization"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
+                android:scaleX="0.80"
+                android:scaleY="0.80"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_australia"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="13dp"
+                android:checked="true"/>
+
+            <CheckBox
+                android:text="@string/check_box_australia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_australia"
+                android:scaleX="0.80"
+                android:scaleY="0.80"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/checkBox_immunization"
+                android:layout_marginEnd="11dp"
+                android:checked="true"/>
+
+            <CheckBox
+                android:text="@string/check_box_usa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_usa"
+                android:scaleX="0.80"
+                android:scaleY="0.80"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/checkBox_eurozone"
+                android:layout_marginStart="17dp"
+                android:checked="true"/>
 
         </RelativeLayout>
 
@@ -210,18 +217,6 @@
             android:layout_margin="@dimen/header_icon_start">
 
             <TextView
-                android:text="0"
-                android:textColor="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textStyle="normal|italic"
-                android:id="@+id/textView_num"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/textView_num_flights"
-                android:layout_marginEnd="@dimen/header_icon_half"/>
-
-            <TextView
                 android:text="@string/setup_num_flights"
                 android:textColor="@color/colorTextSecondary"
                 android:layout_width="wrap_content"
@@ -231,6 +226,18 @@
                 android:textStyle="normal|italic"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:text="0"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="normal|italic"
+                android:id="@+id/textView_num"
+                android:layout_marginEnd="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/textView_num_flights" />
         </RelativeLayout>
 
         <ImageView
