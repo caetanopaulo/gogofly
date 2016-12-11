@@ -151,62 +151,62 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout_input"
-            android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout_checkbox">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/relativeLayout_input"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:id="@+id/relativeLayout_checkbox">-->
 
-            <CheckBox
-                android:text="@string/check_box_europe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_eurozone"
-                android:scaleX="0.80"
-                android:scaleY="0.80"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/header_icon_half"
-                android:checked="true"/>
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_europe"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_eurozone"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_marginStart="@dimen/header_icon_half"-->
+                <!--android:checked="true"/>-->
 
 
-            <CheckBox
-                android:text="@string/check_box_asia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_immunization"
-                android:scaleX="0.80"
-                android:scaleY="0.80"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="13dp"
-                android:checked="true"/>
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_asia"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_immunization"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_marginEnd="13dp"-->
+                <!--android:checked="true"/>-->
 
-            <CheckBox
-                android:text="@string/check_box_australia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_australia"
-                android:scaleX="0.80"
-                android:scaleY="0.80"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/checkBox_immunization"
-                android:layout_marginEnd="11dp"
-                android:checked="true"/>
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_australia"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_australia"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_toStartOf="@+id/checkBox_immunization"-->
+                <!--android:layout_marginEnd="11dp"-->
+                <!--android:checked="true"/>-->
 
-            <CheckBox
-                android:text="@string/check_box_usa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_usa"
-                android:scaleX="0.80"
-                android:scaleY="0.80"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_eurozone"
-                android:layout_marginStart="17dp"
-                android:checked="true"/>
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_usa"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_usa"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_toEndOf="@+id/checkBox_eurozone"-->
+                <!--android:layout_marginStart="17dp"-->
+                <!--android:checked="true"/>-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
         <RelativeLayout
             android:layout_height="wrap_content"
