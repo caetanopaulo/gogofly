@@ -123,7 +123,7 @@ public class SetupActivity extends GoGoFlyActivity {
                         */
 
                         if (accessToken != null) {
-                            String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-02-23&maxDepartureDate=2017-01-22&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
+                            String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-12-10&maxDepartureDate=2017-12-31&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
                             String authTravelLocations = "Bearer " + accessToken;
 
                             // System.out.println("Using Travel Location Bearer: " + authTravelLocations);

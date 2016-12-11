@@ -36,5 +36,8 @@
     <string name="title_activity_buy_flight">BuyFlightActivity</string>
     <string name="title_activity_ticket">TicketActivity</string>
 
-
+    <!-- Flight Overview -->
+    <string name="fo_flight">Flight</string>
+    <string name="fo_departure">Departure</string>
+    <string name="fo_duration">Duration</string>
 </resources>

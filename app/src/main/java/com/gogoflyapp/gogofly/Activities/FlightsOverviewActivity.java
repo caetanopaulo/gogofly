@@ -47,7 +47,7 @@ public class FlightsOverviewActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), FlightViewActivity.class);
                 //If you wanna send any data to nextActicity.class you can use
                 String key = "flight_position_in_Array";
-                //i.putExtra(key, value.get(position));
+                i.putExtra(key, "" + position);
 
                 startActivity(i);
             }

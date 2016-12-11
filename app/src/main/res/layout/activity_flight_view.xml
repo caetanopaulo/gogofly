@@ -7,28 +7,349 @@
     android:fitsSystemWindows="true"
     tools:context="com.gogoflyapp.gogofly.Activities.FlightViewActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_header"
+                android:id="@+id/relativeLayout_header" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rel_lay_from"
+                android:layout_below="@+id/relativeLayout_header">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rel_lay_from_header">
+
+                    <TextView
+                        android:text="@string/fo_flight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView_flight"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:textAllCaps="true"
+                        android:textStyle="normal|bold"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="24dp" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView_from_line"
+                        android:textAllCaps="true"
+                        android:layout_alignStart="@+id/textView_flight"
+                        android:layout_below="@+id/textView_flight"
+                        android:layout_marginBottom="24dp"/>
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:textStyle="normal|bold"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginTop="32dp"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorAccent"
+                        android:id="@+id/textView_from_header_price" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rel_lay_from_from_to"
+                    android:layout_below="@+id/rel_lay_from_header">
+
+                    <TextView
+                        android:text="TextView"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:id="@+id/textView_from_f_country" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="180dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:id="@+id/textView_from_t_country" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rel_lay_from_departure"
+                    android:layout_below="@+id/rel_lay_from_from_to">
+
+                    <TextView
+                        android:text="TextView"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:id="@+id/textView_from_departure" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="180dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:textColor="@color/colorAccent"
+                        android:id="@+id/textView_from_date" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:id="@+id/textView_from_time" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rel_lay_from_duration"
+                    android:layout_below="@+id/rel_lay_from_departure">
+
+                    <TextView
+                        android:text="TextView"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:id="@+id/textView_from_duration" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:textColor="@color/colorAccent"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="180dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:id="@+id/textView_from_duration_time" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rel_lay_to"
+                    android:layout_below="@+id/rel_lay_from">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rel_lay_to_header">
+
+                        <TextView
+                            android:text="@string/fo_flight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView_flight_to"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                            android:textAllCaps="true"
+                            android:textStyle="normal|bold"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="24dp"/>
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView_to_line"
+                            android:textAllCaps="true"
+                            android:layout_alignStart="@+id/textView_flight_to"
+                            android:layout_below="@+id/textView_flight_to"
+                            android:layout_marginBottom="24dp"/>
+
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:textStyle="normal|bold"
+                            android:layout_marginEnd="32dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginBottom="24dp"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:id="@+id/textView_to_header_price" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:id="@+id/rel_lay_from_fo_from"
+        android:layout_below="@+id/rel_lay_to_header">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <TextView
+            android:text="TextView"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/textView_to_f_country" />
 
-    </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:text="TextView"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/textView_to_t_country" />
+        </RelativeLayout>
 
-    <include layout="@layout/content_flight_view" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:id="@+id/rel_lay_to_departure"
+        android:layout_below="@+id/rel_lay_from_fo_from">
+
+        <TextView
+            android:text="TextView"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/textView_to_departure" />
+
+        <TextView
+            android:text="TextView"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/textView_to_date" />
+
+        <TextView
+            android:text="TextView"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/textView_to_time" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rel_lay_to_duration"
+        android:layout_below="@+id/rel_lay_to_departure">
+
+        <TextView
+            android:text="TextView"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/textView_to_duration" />
+
+        <TextView
+            android:text="TextView"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/textView_to_duration_time" />
+
+        </RelativeLayout>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_below="@+id/rel_lay_to"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gogo_button"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/imageViewGoGoFly"
+                android:padding="10sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:layout_marginTop="15sp"
+                android:layout_marginBottom="15sp"/>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
