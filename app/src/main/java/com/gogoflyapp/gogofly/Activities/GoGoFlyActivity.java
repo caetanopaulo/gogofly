@@ -24,5 +24,14 @@ public class GoGoFlyActivity extends AppCompatActivity  {
                 startActivity(intent);
             }
         });
+
+        ImageView imageViewTicket = (ImageView) findViewById(R.id.imageView_ticket);
+        imageViewTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TicketActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
