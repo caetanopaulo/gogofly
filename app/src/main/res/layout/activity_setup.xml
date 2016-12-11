@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,7 @@
     tools:context="com.gogoflyapp.gogofly.Activities.SetupActivity">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/activity_setup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -126,18 +126,6 @@
                     android:layout_toEndOf="@+id/textView_setup_days" />
 
                 <TextView
-                    android:text="@string/setup_price_sub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_days_sub"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                    android:layout_below="@+id/seekBar_days"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/seekBar_days"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textAlignment="center" />
-
-                <TextView
                     android:text="@string/setup_days_range"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorAccent"
@@ -163,55 +151,62 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout_input"
-            android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout_checkbox">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/relativeLayout_input"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:id="@+id/relativeLayout_checkbox">-->
 
-            <CheckBox
-                android:text="@string/check_box_europe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_eurozone"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/header_icon_half"/>
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_europe"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_eurozone"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_marginStart="@dimen/header_icon_half"-->
+                <!--android:checked="true"/>-->
 
 
-            <CheckBox
-                android:text="@string/check_box_usa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_usa"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_eurozone" />
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_asia"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_immunization"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_marginEnd="13dp"-->
+                <!--android:checked="true"/>-->
 
-            <CheckBox
-                android:text="@string/check_box_australia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_australia"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_usa" />
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_australia"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_australia"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_toStartOf="@+id/checkBox_immunization"-->
+                <!--android:layout_marginEnd="11dp"-->
+                <!--android:checked="true"/>-->
 
-            <CheckBox
-                android:text="@string/check_box_asia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_immunization"
-                android:scaleX="0.70"
-                android:scaleY="0.70"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/checkBox_australia"/>
+            <!--<CheckBox-->
+                <!--android:text="@string/check_box_usa"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/checkBox_usa"-->
+                <!--android:scaleX="0.80"-->
+                <!--android:scaleY="0.80"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_toEndOf="@+id/checkBox_eurozone"-->
+                <!--android:layout_marginStart="17dp"-->
+                <!--android:checked="true"/>-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
         <RelativeLayout
             android:layout_height="wrap_content"
@@ -220,18 +215,6 @@
             android:layout_width="wrap_content"
             android:id="@+id/relativeLayout_num_flights_available"
             android:layout_margin="@dimen/header_icon_start">
-
-            <TextView
-                android:text="3"
-                android:textColor="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textStyle="normal|italic"
-                android:id="@+id/textView_num"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/textView_num_flights"
-                android:layout_marginEnd="@dimen/header_icon_half"/>
 
             <TextView
                 android:text="@string/setup_num_flights"
@@ -243,6 +226,18 @@
                 android:textStyle="normal|italic"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:text="0"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="normal|italic"
+                android:id="@+id/textView_num"
+                android:layout_marginEnd="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/textView_num_flights" />
         </RelativeLayout>
 
         <ImageView

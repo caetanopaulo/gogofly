@@ -32,8 +32,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -45,6 +50,11 @@ public class SetupActivity extends GoGoFlyActivity {
     private String lowest_price;
     private String user_max_price;
     private String higest_price;
+
+    private int trip_days_min = 1;
+    private int trip_days_max = 2;
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -66,7 +76,28 @@ public class SetupActivity extends GoGoFlyActivity {
         imageViewGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneHome();
+
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+                Date today = new Date();
+                Date todayWithZeroTime = new Date();
+                try {
+                    todayWithZeroTime = formatter.parse(formatter.format(today));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar c = Calendar.getInstance();
+                c.setTime(todayWithZeroTime);
+                c.add(Calendar.DATE, trip_days_min);
+                Date minDate = new Date(c.getTimeInMillis());
+
+                c.setTime(todayWithZeroTime);
+                c.add(Calendar.DATE, trip_days_max);
+                Date maxDate = new Date(c.getTimeInMillis());
+
+                filterByMaxPriceAndDateInterval(Math.round(Double.parseDouble(user_max_price)),minDate, maxDate);
+                //phoneHome();
                 // go to new Activity
                 Intent intent = new Intent(getApplicationContext(), FlightsOverviewActivity.class);
                 startActivity(intent);
@@ -76,6 +107,55 @@ public class SetupActivity extends GoGoFlyActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+    private int filterByMaxPriceAndDateInterval(long user_max_price,Date min, Date max ){
+        ArrayList<Flight> flights = Suitcase.getInstance().getTotalFlights();
+        ArrayList<Flight> flightsToRemove = new ArrayList<Flight>();
+        ArrayList<Flight> selectedFlights = new ArrayList<Flight>();
+        selectedFlights.addAll(flights);
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (Flight flight: flights) {
+
+            Date flightReturnDate = new Date();
+
+            try {
+                flightReturnDate = formatter.parse(flight.getReturn_date());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if((Long.parseLong(flight.getPrice()) > user_max_price) || (flightReturnDate.before(min) || flightReturnDate.after(max))){
+                flightsToRemove.add(flight);
+            }
+        }
+
+        selectedFlights.removeAll(flightsToRemove);
+
+        Suitcase.getInstance().setSelectedFlights(selectedFlights);
+        return selectedFlights.size();
+    }
+
+    private int filterByReturnDate(Date min, Date max ){
+        ArrayList<Flight> flights = Suitcase.getInstance().getTotalFlights();
+        ArrayList<Flight> flightsToRemove = new ArrayList<Flight>();
+        ArrayList<Flight> selectedFlights = new ArrayList<Flight>();
+        selectedFlights.addAll(flights);
+
+        for (Flight flight: flights) {
+            if( new Date(flight.getReturn_date()).before(min) || new Date(flight.getReturn_date()).after(max))
+            {
+                flightsToRemove.add(flight);
+            }
+        }
+        selectedFlights.removeAll(flightsToRemove);
+
+        Suitcase.getInstance().setSelectedFlights(selectedFlights);
+        return selectedFlights.size();
+    }
+
+
 
     private void phoneHome() {
         String url = "https://www.klm.com/oauthcust/oauth/token?grant_type=client_credentials";
@@ -123,7 +203,8 @@ public class SetupActivity extends GoGoFlyActivity {
                         */
 
                         if (accessToken != null) {
-                            String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-12-10&maxDepartureDate=2017-12-31&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
+                            String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-12-11&maxDepartureDate=2016-12-31&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
+
                             String authTravelLocations = "Bearer " + accessToken;
 
                             // System.out.println("Using Travel Location Bearer: " + authTravelLocations);
@@ -175,6 +256,7 @@ public class SetupActivity extends GoGoFlyActivity {
                         try {
                             reader = new JSONObject(response);
                             parseData(reader);
+                            updateflightCounter();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -378,6 +460,7 @@ public class SetupActivity extends GoGoFlyActivity {
         textViewUserMaxPayment.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro), Integer.toString(max_100ish) + ".00"));
 
         SeekBar seekBarPrice = (SeekBar) findViewById(R.id.seekBar_price);
+        //seekBarPrice.setProgress((Integer.parseInt(higest_price)+Integer.parseInt(lowest_price)/2));
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 
@@ -398,6 +481,8 @@ public class SetupActivity extends GoGoFlyActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // System.out.println(progress + " Stopped");
                 // Maybe set somewhere else?
+                updateflightCounter();
+
             }
         });
 
@@ -415,7 +500,9 @@ public class SetupActivity extends GoGoFlyActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                 progress = progresValue / 2;
-                textViewDaysRange.setText(String.format(getResources().getString(R.string.setup_days_range), progress / 4, progress / 2, getResources().getString(R.string.setup_days_stay)));
+                trip_days_min = progress / 4;
+                trip_days_max = progress / 2;
+                textViewDaysRange.setText(String.format(getResources().getString(R.string.setup_days_range), trip_days_min, trip_days_max, getResources().getString(R.string.setup_days_stay)));
             }
 
             @Override
@@ -427,6 +514,7 @@ public class SetupActivity extends GoGoFlyActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // System.out.println(progress + " Stopped");
                 // Maybe set somewhere else?
+                updateflightCounter();
             }
         });
 
@@ -434,6 +522,34 @@ public class SetupActivity extends GoGoFlyActivity {
 
         System.out.println(all_flights.get(0).getPrice());
         System.out.println(all_flights.get(all_flights.size() -1).getPrice());
+
+    }
+
+    private void updateflightCounter(){
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date today = new Date();
+        Date todayWithZeroTime = new Date();
+        try {
+            todayWithZeroTime = formatter.parse(formatter.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(todayWithZeroTime);
+        c.add(Calendar.DATE, trip_days_min);
+        Date minDate = new Date(c.getTimeInMillis());
+
+        c.setTime(todayWithZeroTime);
+        c.add(Calendar.DATE, trip_days_max);
+        Date maxDate = new Date(c.getTimeInMillis());
+
+        int numberOfFlights = filterByMaxPriceAndDateInterval(Math.round(Double.parseDouble(user_max_price)),minDate, maxDate);
+
+        //TextView numberOfFlightsText = (TextView)findViewById(R.id.textView_num_flights);
+        final TextView num_flights_left = (TextView) findViewById(R.id.textView_num);
+        num_flights_left.setText(numberOfFlights+"");
 
     }
 
