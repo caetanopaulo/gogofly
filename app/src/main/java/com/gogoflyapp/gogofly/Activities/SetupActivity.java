@@ -1,6 +1,7 @@
 package com.gogoflyapp.gogofly.Activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -60,6 +61,7 @@ public class SetupActivity extends GoGoFlyActivity {
     private boolean switch_loc_state = false;
     private boolean switch_loc_theme = false;
 
+    private ProgressDialog progress;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -73,6 +75,9 @@ public class SetupActivity extends GoGoFlyActivity {
 
         // Header Stuff
         settleIn();
+
+        progress = new ProgressDialog(this);
+        startLoadingSpinner();
 
         // get data from server
         phoneHome();
@@ -115,7 +120,7 @@ public class SetupActivity extends GoGoFlyActivity {
         addPopupToToggle();
     }
 
-    private int filterByMaxPriceAndDateInterval(long user_max_price,Date min, Date max ){
+    private int filterByMaxPriceAndDateInterval(long user_max_price, Date min, Date max ){
         ArrayList<Flight> flights = Suitcase.getInstance().getTotalFlights();
         ArrayList<Flight> flightsToRemove = new ArrayList<Flight>();
         ArrayList<Flight> selectedFlights = new ArrayList<Flight>();
@@ -263,6 +268,7 @@ public class SetupActivity extends GoGoFlyActivity {
                         try {
                             reader = new JSONObject(response);
                             parseData(reader);
+                            endLoadingSpinner();
                             updateflightCounter();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -609,7 +615,7 @@ public class SetupActivity extends GoGoFlyActivity {
                     final CharSequence[] items = {"Arts & Culture", "Food & Drinks", "Romance", "Architecture", "History", "Family fun", "Music & Nightlife", "Nature", "Beach", "Golf", "Surfing", "Skiing", "Luxury & Wellness", "Active & Outdoor", "Shopping", "Diving & Snorkeling", "World cities"};
                     final boolean[] states = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
                     AlertDialog.Builder builder = new AlertDialog.Builder(SetupActivity.this);
-                    builder.setTitle("What would you like to do?");
+                    builder.setTitle("Adventure Type:");
                     builder.setMultiChoiceItems(items, states, new DialogInterface.OnMultiChoiceClickListener(){
                         public void onClick(DialogInterface dialogInterface, int item, boolean state) {
                         }
@@ -635,4 +641,15 @@ public class SetupActivity extends GoGoFlyActivity {
         });
     }
 
+    private void startLoadingSpinner() {
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+    }
+
+    private void endLoadingSpinner() {
+        // To dismiss the dialog
+        progress.dismiss();
+    }
 }

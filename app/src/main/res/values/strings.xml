@@ -38,6 +38,7 @@
 
     <!-- Flight Overview -->
     <string name="fo_flight">Flight</string>
+    <string name="back_flight">Return Flight</string>
     <string name="fo_departure">Departure</string>
     <string name="fo_duration">Duration</string>
 </resources>
