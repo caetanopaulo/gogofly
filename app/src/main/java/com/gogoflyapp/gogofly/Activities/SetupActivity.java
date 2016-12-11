@@ -2,7 +2,6 @@ package com.gogoflyapp.gogofly.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -21,7 +20,6 @@ import com.android.volley.toolbox.Volley;
 import com.gogoflyapp.gogofly.R;
 import com.gogoflyapp.gogofly.tools.Flight;
 import com.gogoflyapp.gogofly.tools.FlightPriceComparator;
-import com.gogoflyapp.gogofly.tools.HeaderSetter;
 import com.gogoflyapp.gogofly.tools.Suitcase;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -45,7 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class SetupActivity extends AppCompatActivity {
+public class SetupActivity extends GoGoFlyActivity {
 
     String accessToken = null;
     String expires_in = null;
@@ -68,8 +66,9 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        HeaderSetter headerSetter = new HeaderSetter(getApplicationContext(), findViewById(R.id.relativeLayout_header));
-        headerSetter.settleIn();
+        // Header Stuff
+        settleIn();
+
         // get data from server
         phoneHome();
 
@@ -205,6 +204,7 @@ public class SetupActivity extends AppCompatActivity {
 
                         if (accessToken != null) {
                             String urlTravelLocations = "https://api.klm.com/travel/locations/cities?expand=lowest-fare&pageSize=100000&country=NL&origins=AMS&minDepartureDate=2016-12-11&maxDepartureDate=2016-12-31&minDuration=P3D&maxDuration=P20D&minBudget=0&maxBudget=5000000";
+
                             String authTravelLocations = "Bearer " + accessToken;
 
                             // System.out.println("Using Travel Location Bearer: " + authTravelLocations);

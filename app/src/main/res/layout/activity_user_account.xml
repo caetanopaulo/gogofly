@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.gogoflyapp.gogofly.Activities.TicketActivity">
+    tools:context="com.gogoflyapp.gogofly.Activities.UserAccountActivity">
 
 
     <LinearLayout
@@ -20,8 +20,8 @@
             android:id="@+id/relativeLayout_header" />
 
         <ImageView
-            android:src="@drawable/ticket"
-            android:id="@+id/imageView_ticket"
+            android:src="@drawable/accountz_head"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
@@ -31,7 +31,6 @@
             android:scaleType="fitCenter" />
 
     </LinearLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>
 
