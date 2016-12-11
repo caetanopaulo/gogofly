@@ -151,7 +151,37 @@
 
         </RelativeLayout>
 
-        <!--<RelativeLayout-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout_input">
+
+
+            <Switch
+                android:text="Continents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="24dp"
+                android:id="@+id/switch_loc" />
+
+            <Switch
+                android:text="Adventure Type"
+                android:layout_below="@+id/switch_loc"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="24dp"
+                android:id="@+id/switch_theme" />
+
+        </RelativeLayout>
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_below="@+id/relativeLayout_input"-->

@@ -16,6 +16,15 @@ public class GoGoFlyActivity extends AppCompatActivity  {
     }
 
     public void settleIn() {
+        ImageView imageViewHome = (ImageView) findViewById(R.id.imageView_home);
+        imageViewHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SetupActivity.class);
+                startActivity(intent);
+            }
+        });
+
         ImageView imageViewUser = (ImageView) findViewById(R.id.imageView_user);
         imageViewUser.setOnClickListener(new View.OnClickListener() {
             @Override

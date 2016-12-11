@@ -1,5 +1,7 @@
 package com.gogoflyapp.gogofly.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -54,6 +57,8 @@ public class SetupActivity extends GoGoFlyActivity {
     private int trip_days_min = 1;
     private int trip_days_max = 2;
 
+    private boolean switch_loc_state = false;
+    private boolean switch_loc_theme = false;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -106,6 +111,8 @@ public class SetupActivity extends GoGoFlyActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        addPopupToToggle();
     }
 
     private int filterByMaxPriceAndDateInterval(long user_max_price,Date min, Date max ){
@@ -551,6 +558,81 @@ public class SetupActivity extends GoGoFlyActivity {
         final TextView num_flights_left = (TextView) findViewById(R.id.textView_num);
         num_flights_left.setText(numberOfFlights+"");
 
+    }
+
+    private void addPopupToToggle() {
+        Switch switch_locations = (Switch) findViewById(R.id.switch_loc);
+        switch_locations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch_loc_state = !switch_loc_state;
+                if (switch_loc_state) {
+
+                    // SHOW THEM STUFF!!!
+                    final CharSequence[] items = {"Africa", "Asia", "Europe", "North-America", "South-America", "Oceania"};
+                    final boolean[] states = {false, false, false, false, false, false};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SetupActivity.this);
+                    builder.setTitle("Where would you like to go?");
+                    builder.setMultiChoiceItems(items, states, new DialogInterface.OnMultiChoiceClickListener(){
+                        public void onClick(DialogInterface dialogInterface, int item, boolean state) {
+                        }
+                    });
+                    builder.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            /*
+                            SparseBooleanArray CheCked = ((AlertDialog)dialog).getListView().getCheckedItemPositions();
+                            if(CheCked.get(CheCked.keyAt(0)) == true){
+                                Toast.makeText(Backup.this, "Item 1", Toast.LENGTH_SHORT).show();
+                            }
+                            */
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.create().show();
+                }
+
+            }
+        });
+
+        Switch switch_themes = (Switch) findViewById(R.id.switch_theme);
+        switch_themes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch_loc_theme = !switch_loc_theme;
+                if (switch_loc_theme) {
+
+                    // SHOW THEM STUFF!!!
+                    final CharSequence[] items = {"Arts & Culture", "Food & Drinks", "Romance", "Architecture", "History", "Family fun", "Music & Nightlife", "Nature", "Beach", "Golf", "Surfing", "Skiing", "Luxury & Wellness", "Active & Outdoor", "Shopping", "Diving & Snorkeling", "World cities"};
+                    final boolean[] states = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SetupActivity.this);
+                    builder.setTitle("What would you like to do?");
+                    builder.setMultiChoiceItems(items, states, new DialogInterface.OnMultiChoiceClickListener(){
+                        public void onClick(DialogInterface dialogInterface, int item, boolean state) {
+                        }
+                    });
+                    builder.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            /*
+                            SparseBooleanArray CheCked = ((AlertDialog)dialog).getListView().getCheckedItemPositions();
+                            if(CheCked.get(CheCked.keyAt(0)) == true){
+                                Toast.makeText(Backup.this, "Item 1", Toast.LENGTH_SHORT).show();
+                            }
+                            */
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.create().show();
+                }
+            }
+        });
     }
 
 }

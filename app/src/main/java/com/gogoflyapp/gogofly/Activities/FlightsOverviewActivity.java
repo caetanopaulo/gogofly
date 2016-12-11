@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Activity to show flights to user.
  */
-public class FlightsOverviewActivity extends AppCompatActivity {
+public class FlightsOverviewActivity extends GoGoFlyActivity {
 
     private ArrayList<Flight> flights;
     @Override
