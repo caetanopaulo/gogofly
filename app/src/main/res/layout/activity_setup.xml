@@ -210,7 +210,7 @@
             android:layout_margin="@dimen/header_icon_start">
 
             <TextView
-                android:text="3"
+                android:text="0"
                 android:textColor="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

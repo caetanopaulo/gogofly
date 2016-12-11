@@ -256,6 +256,7 @@ public class SetupActivity extends AppCompatActivity {
                         try {
                             reader = new JSONObject(response);
                             parseData(reader);
+                            updateflightCounter();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -459,6 +460,7 @@ public class SetupActivity extends AppCompatActivity {
         textViewUserMaxPayment.setText(String.format(getResources().getString(R.string.setup_price_max), getResources().getString(R.string.money_euro), Integer.toString(max_100ish) + ".00"));
 
         SeekBar seekBarPrice = (SeekBar) findViewById(R.id.seekBar_price);
+        //seekBarPrice.setProgress((Integer.parseInt(higest_price)+Integer.parseInt(lowest_price)/2));
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 
