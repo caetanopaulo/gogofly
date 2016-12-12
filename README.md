@@ -1,4 +1,4 @@
-# gogofly
+# GoGo Fly
 
 This / was a project for the Dutch Open Hackaton 2016.
 
