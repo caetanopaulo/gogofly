@@ -711,6 +711,10 @@ public class SetupActivity extends GoGoFlyActivity {
         endLoadingSpinner();
     }
 
+    /**
+     * http://openweathermap.org/ for source.
+     * @param flights
+     */
     private void addWeatherToArrivals(ArrayList<Flight> flights) {
 
         for (Flight flight : flights) {
