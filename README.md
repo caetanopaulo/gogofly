@@ -3,10 +3,10 @@
 This / was a project for the Dutch Open Hackaton 2016.
 
 Our awesome GoGo Fly Team:
-- Paulo Ceatano		Idea & Coding
-- Kees Marijs		Cody Monkey
-- Linda Hoekstra	Layout Design & User Experience
-- Juan Zhang		Business Case
+- Paulo Ceatano		- Idea & Coding
+- Kees Marijs		- Cody Monkey
+- Linda Hoekstra	- Layout Design & User Experience
+- Juan Zhang		- Business Case
 
 ---
 
