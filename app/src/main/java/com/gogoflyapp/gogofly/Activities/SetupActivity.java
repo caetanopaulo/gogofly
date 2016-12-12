@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -15,10 +16,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gogoflyapp.gogofly.R;
@@ -35,7 +41,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -693,8 +705,28 @@ public class SetupActivity extends GoGoFlyActivity {
         }
         Suitcase.getInstance().setTotalFlights(new_flights);
 
+        addWeatherToArrivals(new_flights);
+
         setOfferSlider(new_flights);
         endLoadingSpinner();
+    }
+
+    private void addWeatherToArrivals(ArrayList<Flight> flights) {
+
+        for (Flight flight : flights) {
+            String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+            String RETURN_TYPE = "/json";
+            String API_KEY = "ec466524eff897f20e8a46472911c63a";
+            HttpURLConnection con = null ;
+            InputStream is = null;
+
+            StringBuilder sb = new StringBuilder(BASE_URL + flight.getDestination_name());
+            sb.append("?key=" + API_KEY);
+
+
+            //System.out.println(getWeatherData(flight.getDestination_name()));
+        }
+
     }
 
     private void startLoadingSpinner() {
@@ -715,5 +747,8 @@ public class SetupActivity extends GoGoFlyActivity {
         cal.add(Calendar.DATE, days); //minus number would decrement the days
         return cal.getTime();
     }
+
+
+
 
 }
