@@ -35,6 +35,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -83,7 +85,7 @@ public class SetupActivity extends GoGoFlyActivity {
         // phoneHome();
 
         // But them server don't working now
-        createFakeFlights();
+        loadKLMApiData();
 
         ImageView imageViewGo = (ImageView) findViewById(R.id.imageViewGoGoFly);
         imageViewGo.setOnClickListener(new View.OnClickListener() {
@@ -648,53 +650,21 @@ public class SetupActivity extends GoGoFlyActivity {
     }
 
     /**
-     * Need to fake it till we make it.
+     * Yep, MOAR FAKE DATA!
+     *
+     * From:
+     * http://stackoverflow.com/questions/19945411/android-java-how-can-i-parse-a-local-json-file-from-assets-folder-into-a-listvi
      */
-    private void createFakeFlights() {
-        String [] countries = {"Denmark", "United Kingdom", "United Arab Emirates", "Nigeria", "Ghana", "Spain", "Kazakhstan", "Switzerland", "Norway", "Italy", "France", "Hungary", "Germany", "Italy", "Finland", "Ukraine", "Poland"};
-        String [] places = {"Aalborg", "Aberdeen", "Abidjan", "Abu Dhabi", "Accra", "Alicante", "Almaty", "Basel", "Bergen", "Bologna", "Bordeaux", "Budapest", "Düsseldorf", "Florence", "Helsinki", "Kiev", "Krakow"};
-        int [] flight_duration = {1, 2, 5, 6, 7, 3, 6, 2, 3, 3, 3, 3, 2, 3, 3, 4, 3};
-        String [] flights_dur_string = new String[flight_duration.length];
-        for (int i = 0; i < flight_duration.length; i++) {
-            flights_dur_string[i] = Integer.toString(flight_duration[i] * 60 * 60 * 1000);
+    private void loadKLMApiData() {
+        Log.d("Loading KLM Data", "In progress...");
+        // load file to JSON object:
+        String json_string = loadJSONFromAsset("klm_api_data.json");
+        try {
+            JSONObject json_obj = new JSONObject(json_string);
+            parseData(json_obj);
+        } catch (JSONException jex) {
+            jex.printStackTrace();
         }
-
-        /*
-        for (int i = 0; i < countries.length; i++) {
-            System.out.println(i + " " + countries[i] + " | " + places[i] + " - " + flights_dur_string[i]);
-        }
-        */
-
-        ArrayList<Flight> new_flights = new ArrayList<>();
-        String amsterdam = "Schiphol";
-
-        for (int i = 0; i < countries.length; i++) {
-            Flight new_flight = new Flight(places[i]);
-            new_flight.setDestination_code("code");
-            new_flight.setOrigin_name(amsterdam);
-            new_flight.setOrigin_code("Origin code");
-
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //  HH:mm:ss
-            Date date = new Date();
-            Random rand = new Random();
-            // System.out.println(dateFormat.format(date));
-            new_flight.setDeparture_date(dateFormat.format(date));
-            new_flight.setReturn_date(dateFormat.format(addDays(date, (rand.nextInt(4) + 1) * 2)));
-
-            new_flight.setCurrency("EUR");
-            new_flight.setPrice("" + (flight_duration[i] * rand.nextInt(3) + 1) * (rand.nextInt(50) + 50));
-
-            new_flight.setFlight_time(flights_dur_string[i]);
-            new_flight.setPopularity("" + rand.nextInt(4) + 1);
-
-            new_flight.setDeparture_time(getFakeTime());
-            // System.out.println(json.getString("popularity"));
-            new_flights.add(new_flight);
-        }
-        Suitcase.getInstance().setTotalFlights(new_flights);
-
-        setOfferSlider(new_flights);
-        endLoadingSpinner();
     }
 
     private void startLoadingSpinner() {
@@ -709,11 +679,19 @@ public class SetupActivity extends GoGoFlyActivity {
         progress.dismiss();
     }
 
-    public static Date addDays(Date date, int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DATE, days); //minus number would decrement the days
-        return cal.getTime();
+    public String loadJSONFromAsset(String file_name) {
+        String json = null;
+        try {
+            InputStream is = getApplication().getAssets().open(file_name);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
-
 }
