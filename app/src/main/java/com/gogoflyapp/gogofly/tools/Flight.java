@@ -26,6 +26,7 @@ public class Flight {
 
     private ArrayList<Theme> themes;
 
+    private Weather destination_weather;
 
     // Constructor
     public Flight(){
@@ -36,6 +37,7 @@ public class Flight {
         this();
         this.setDestination_name(destination_name);
         this.themes = new ArrayList<>();
+        destination_weather = null;
     }
 
     // Setter and Getters
@@ -157,5 +159,13 @@ public class Flight {
 
     public void setOrigin_code(String origin_code) {
         this.origin_code = origin_code;
+    }
+
+    public Weather getDestination_weather() {
+        return destination_weather;
+    }
+
+    public void setDestination_weather(Weather destination_weather) {
+        this.destination_weather = destination_weather;
     }
 }

@@ -25,6 +25,7 @@ import com.gogoflyapp.gogofly.R;
 import com.gogoflyapp.gogofly.tools.Flight;
 import com.gogoflyapp.gogofly.tools.FlightPriceComparator;
 import com.gogoflyapp.gogofly.tools.Suitcase;
+import com.gogoflyapp.gogofly.tools.Weather;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -86,6 +87,9 @@ public class SetupActivity extends GoGoFlyActivity {
 
         // But them server don't working now
         loadKLMApiData();
+
+        // and now the Weather, over to you Bob!
+        addWeatherToDestinations(Suitcase.getInstance().getTotalFlights());
 
         ImageView imageViewGo = (ImageView) findViewById(R.id.imageViewGoGoFly);
         imageViewGo.setOnClickListener(new View.OnClickListener() {
@@ -693,5 +697,42 @@ public class SetupActivity extends GoGoFlyActivity {
             return null;
         }
         return json;
+    }
+
+    /**
+     * Bob here from the Destination! It looks like its gonne be a docey!
+     *
+     * @param flights                   Swing low, sweet chariot!
+     */
+    private void addWeatherToDestinations(ArrayList<Flight> flights) {
+        Random rand = new Random();
+        Weather.Sky sky = null;
+        int sky_int = rand.nextInt(5) + 1;
+        switch (sky_int) {
+            case 1:
+                sky = Weather.Sky.SUN;
+                break;
+
+            case 2:
+                sky = Weather.Sky.SNOW;
+                break;
+
+            case 3:
+                sky = Weather.Sky.RAIN;
+                break;
+
+            case 4:
+                sky = Weather.Sky.MIST;
+                break;
+
+            default:
+                sky = Weather.Sky.OVERCAST;
+                break;
+        }
+
+        for (Flight flight : flights) {
+            Weather new_weather = new Weather(rand.nextInt(500) + 1, rand.nextDouble() * 30, sky);
+            flight.setDestination_weather(new_weather);
+        }
     }
 }
