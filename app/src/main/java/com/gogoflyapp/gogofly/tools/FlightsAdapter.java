@@ -68,7 +68,18 @@ public class FlightsAdapter extends ArrayAdapter<Flight> {
             // Temperature
             TextView tvWeather = (TextView) convertView.findViewById(R.id.textView_weather);
             DecimalFormat df = new DecimalFormat("#.0");
-            tvWeather.setText(String.format(context.getResources().getString(R.string.weather_temp_c), df.format(flight.getDestination_weather().getTemperature())));
+            Double temp = flight.getDestination_weather().getTemperature();
+            String temp_string = "";
+            if (temp.intValue() == 0) {
+                if (temp > 0d) {
+                    temp_string = "0" + String.format(context.getResources().getString(R.string.weather_temp_c), df.format(temp));
+                } else {
+                    temp_string = "-0" + String.format(context.getResources().getString(R.string.weather_temp_c), df.format(temp)).substring(1, 3);
+                }
+            } else {
+                temp_string = String.format(context.getResources().getString(R.string.weather_temp_c), df.format(temp));
+            }
+            tvWeather.setText(temp_string);
             tvWeather.setTextColor(context.getResources().getColor(R.color.colorAlmostWhite));
             tvWeather.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
 

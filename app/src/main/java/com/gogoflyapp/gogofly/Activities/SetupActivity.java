@@ -734,7 +734,7 @@ public class SetupActivity extends GoGoFlyActivity {
                     break;
             }
 
-            Weather new_weather = new Weather(rand.nextInt(500) + 1, rand.nextDouble() * 30, sky);
+            Weather new_weather = new Weather(rand.nextInt(500) + 1, (rand.nextDouble() * 40) - 10, sky);
             flight.setDestination_weather(new_weather);
         }
     }
