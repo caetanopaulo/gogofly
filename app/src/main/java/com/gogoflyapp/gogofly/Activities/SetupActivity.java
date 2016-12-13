@@ -88,9 +88,6 @@ public class SetupActivity extends GoGoFlyActivity {
         // But them server don't working now
         loadKLMApiData();
 
-        // and now the Weather, over to you Bob!
-        addWeatherToDestinations(Suitcase.getInstance().getTotalFlights());
-
         ImageView imageViewGo = (ImageView) findViewById(R.id.imageViewGoGoFly);
         imageViewGo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -660,6 +657,7 @@ public class SetupActivity extends GoGoFlyActivity {
      * http://stackoverflow.com/questions/19945411/android-java-how-can-i-parse-a-local-json-file-from-assets-folder-into-a-listvi
      */
     private void loadKLMApiData() {
+        System.out.println("D FDLFKJDLKFJ SDLKFJ");
         Log.d("Loading KLM Data", "In progress...");
         // load file to JSON object:
         String json_string = loadJSONFromAsset("klm_api_data.json");
@@ -669,6 +667,10 @@ public class SetupActivity extends GoGoFlyActivity {
         } catch (JSONException jex) {
             jex.printStackTrace();
         }
+
+        // and now the Weather, over to you Bob!
+        addWeatherToDestinations(Suitcase.getInstance().getTotalFlights());
+        endLoadingSpinner();
     }
 
     private void startLoadingSpinner() {
@@ -707,30 +709,31 @@ public class SetupActivity extends GoGoFlyActivity {
     private void addWeatherToDestinations(ArrayList<Flight> flights) {
         Random rand = new Random();
         Weather.Sky sky = null;
-        int sky_int = rand.nextInt(5) + 1;
-        switch (sky_int) {
-            case 1:
-                sky = Weather.Sky.SUN;
-                break;
-
-            case 2:
-                sky = Weather.Sky.SNOW;
-                break;
-
-            case 3:
-                sky = Weather.Sky.RAIN;
-                break;
-
-            case 4:
-                sky = Weather.Sky.MIST;
-                break;
-
-            default:
-                sky = Weather.Sky.OVERCAST;
-                break;
-        }
 
         for (Flight flight : flights) {
+            int sky_int = rand.nextInt(5) + 1;
+            switch (sky_int) {
+                case 1:
+                    sky = Weather.Sky.SUN;
+                    break;
+
+                case 2:
+                    sky = Weather.Sky.SNOW;
+                    break;
+
+                case 3:
+                    sky = Weather.Sky.RAIN;
+                    break;
+
+                case 4:
+                    sky = Weather.Sky.MIST;
+                    break;
+
+                default:
+                    sky = Weather.Sky.OVERCAST;
+                    break;
+            }
+
             Weather new_weather = new Weather(rand.nextInt(500) + 1, rand.nextDouble() * 30, sky);
             flight.setDestination_weather(new_weather);
         }

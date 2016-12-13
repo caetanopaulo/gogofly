@@ -41,4 +41,7 @@
     <string name="back_flight">Return Flight</string>
     <string name="fo_departure">Departure</string>
     <string name="fo_duration">Duration</string>
+
+    <!-- Weahter -->
+    <string name="weather_temp_c">%1$s °C</string>
 </resources>

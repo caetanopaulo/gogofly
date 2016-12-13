@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gogoflyapp.gogofly.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -59,6 +61,42 @@ public class FlightsAdapter extends ArrayAdapter<Flight> {
 
         String currency = flight.getCurrency();
         tvPrice.setText(String.format(context.getResources().getString(R.string.flight_price), flight.getPrice()));
+
+        if (flight.getDestination_weather() != null) {
+            convertView.findViewById(R.id.ll_weather).setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+
+            // Temperature
+            TextView tvWeather = (TextView) convertView.findViewById(R.id.textView_weather);
+            DecimalFormat df = new DecimalFormat("#.0");
+            tvWeather.setText(String.format(context.getResources().getString(R.string.weather_temp_c), df.format(flight.getDestination_weather().getTemperature())));
+            tvWeather.setTextColor(context.getResources().getColor(R.color.colorAlmostWhite));
+            tvWeather.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+
+            // Icon
+            ImageView ivWeather = (ImageView) convertView.findViewById(R.id.imageView_weather);
+            ivWeather.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+            switch (flight.getDestination_weather().getSky_state()) {
+                case OVERCAST:
+                    ivWeather.setImageResource(R.drawable.ic_weather_overcast);
+                    break;
+
+                case SNOW:
+                    ivWeather.setImageResource(R.drawable.ic_weather_snow);
+                    break;
+
+                case MIST:
+                    ivWeather.setImageResource(R.drawable.ic_weather_mist);
+                    break;
+
+                case RAIN:
+                    ivWeather.setImageResource(R.drawable.ic_weather_rain);
+                    break;
+
+                case SUN:
+                    ivWeather.setImageResource(R.drawable.ic_weather_sun);
+                default:
+            }
+        }
 
         // Return the completed view to render on screen
         return convertView;
