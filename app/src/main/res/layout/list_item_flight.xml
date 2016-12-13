@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/list_item_padding">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_light_disabled"
+            android:id="@+id/imageView_weather" />
+
+        <TextView
+            android:text="0 °C"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_weather"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/listItem_to"
@@ -18,7 +39,7 @@
     <TextView
         android:id="@+id/listItem_price"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:layout_height="wrap_content"
         android:text="@string/list_item_cash"
         android:textColor="@color/colorAccent"
